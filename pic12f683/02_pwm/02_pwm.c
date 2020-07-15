@@ -10,8 +10,20 @@
 #pragma config IESO  = OFF
 #pragma config FCMEN = OFF
 
+#define _XTAL_FREQ 		4000000
+#define GPIO0 			GPIObits.GP0
+#define GPIO5 			GPIObits.GP5
 
-#define GPIO0 GPIObits.GP0
+const unsigned short MAX_PWM_VALUE = 280;
+const unsigned short DELTA_PWM = 28;
+
+unsigned int pwm_value;
+
+
+void set_duty_cycle( unsigned short value) {
+	CCPR1L   = (unsigned char) (value >> 2);		// duty cycle
+	CCP1CON |= (unsigned char) (value << 4);
+}
 
 void config_pwm( void) {
 	TRISIO2 = 1;
@@ -19,8 +31,8 @@ void config_pwm( void) {
 	PR2 = 69;					// pwm period
 	CCP1CON = 0x0F;				// pwm mode, active low
 
-	CCPR1L   = 140 >> 2;		// duty cycle
-	CCP1CON |= (140 << 4);
+	pwm_value = MAX_PWM_VALUE;
+	set_duty_cycle( pwm_value);
 
 	PIR1bits.TMR2IF   = 0;		// timer 2, prescale and activation
 	T2CONbits.T2CKPS1 = 0;
@@ -33,20 +45,40 @@ void config_pwm( void) {
 	TRISIO2 = 0;				// CCP1 as output
 }
 
-void setup( void ){
+void config_gpio() {
+	// output I/O
+	TRISIO0 = 0;			// GPIO0 is output
+
+	// input I/O
+	OPTION_REGbits.nGPPU = 0;	// general enable pull up
+
+	TRISIO5 = 1;			// GPIO5 pin as input
+	WPU5    = 1;			// pull up enabled
+}
+
+void setup( void ) {
+	TRISIO = 0xFF;		// all GPIO pins as inputs
+
 	GPIO = 0;			// clear port latches
 	CMCON0 = 7;			// turn comparators off, enable related pins for I/O
 	ANSEL  = 0;
 
-	TRISIO0 = 0;		// only GPIO0 is output
-
 	config_pwm();
+	config_gpio();
 }
 
 void loop () {
-	GPIO0 = 1;			// conmute pin on and off
-	asm( "nop");
-	GPIO0 = 0;
+	if (GPIO5 == 0) {					// debounces
+		__delay_ms( 100);
+	}
+
+	if( GPIO5 == 0) {
+		pwm_value -= DELTA_PWM;
+		set_duty_cycle( pwm_value);
+
+		while( GPIO5 == 0) {			// wait stop pulsation
+		}
+	}
 }
 
 void main( void) {

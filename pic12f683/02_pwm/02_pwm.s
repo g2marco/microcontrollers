@@ -267,8 +267,54 @@ ADRESL equ 09Eh ;#
 ANSEL equ 09Fh ;# 
 	FNCALL	_main,_loop
 	FNCALL	_main,_setup
+	FNCALL	_setup,_config_gpio
 	FNCALL	_setup,_config_pwm
+	FNCALL	_config_pwm,_set_duty_cycle
+	FNCALL	_loop,_set_duty_cycle
 	FNROOT	_main
+psect	strings,class=STRING,delta=2,noexec
+global __pstrings
+__pstrings:
+stringtab:
+	global    __stringtab
+__stringtab:
+;	String table - string pointers are 1 byte each
+stringcode:stringdir:
+movlw high(stringdir)
+movwf pclath
+movf fsr,w
+incf fsr
+	addwf pc
+	global __stringbase
+__stringbase:
+	retlw	0
+psect	strings
+	global    __end_of__stringtab
+__end_of__stringtab:
+	file	"02_pwm.c"
+	line	18
+_DELTA_PWM:
+	retlw	01Ch
+	retlw	0
+
+	global __end_of_DELTA_PWM
+__end_of_DELTA_PWM:
+psect	strings
+	file	"02_pwm.c"
+	line	17
+_MAX_PWM_VALUE:
+	retlw	018h
+	retlw	01h
+
+	global __end_of_MAX_PWM_VALUE
+__end_of_MAX_PWM_VALUE:
+	global	_pwm_value
+psect	nvCOMMON,class=COMMON,space=1,noexec
+global __pnvCOMMON
+__pnvCOMMON:
+_pwm_value:
+       ds      2
+
 	global	_GPIObits
 _GPIObits	set	0x5
 	global	_CMCON0
@@ -279,14 +325,22 @@ _GPIO	set	0x5
 _T2CONbits	set	0x12
 	global	_PIR1bits
 _PIR1bits	set	0xC
-	global	_CCPR1L
-_CCPR1L	set	0x13
 	global	_CCP1CON
 _CCP1CON	set	0x15
+	global	_CCPR1L
+_CCPR1L	set	0x13
 	global	_ANSEL
 _ANSEL	set	0x9F
+	global	_TRISIO
+_TRISIO	set	0x85
+	global	_OPTION_REGbits
+_OPTION_REGbits	set	0x81
 	global	_PR2
 _PR2	set	0x92
+	global	_WPU5
+_WPU5	set	0x4AD
+	global	_TRISIO5
+_TRISIO5	set	0x42D
 	global	_TRISIO0
 _TRISIO0	set	0x428
 	global	_TRISIO2
@@ -326,26 +380,35 @@ ljmp _main	;jump to C main() function
 psect	cstackCOMMON,class=COMMON,space=1,noexec
 global __pcstackCOMMON
 __pcstackCOMMON:
+?_set_duty_cycle:	; 1 bytes @ 0x0
 ?_config_pwm:	; 1 bytes @ 0x0
-??_config_pwm:	; 1 bytes @ 0x0
+?_config_gpio:	; 1 bytes @ 0x0
+??_config_gpio:	; 1 bytes @ 0x0
 ?_setup:	; 1 bytes @ 0x0
-??_setup:	; 1 bytes @ 0x0
 ?_loop:	; 1 bytes @ 0x0
-??_loop:	; 1 bytes @ 0x0
 ?_main:	; 1 bytes @ 0x0
-??_main:	; 1 bytes @ 0x0
+	global	set_duty_cycle@value
+set_duty_cycle@value:	; 2 bytes @ 0x0
+	ds	2
+??_set_duty_cycle:	; 1 bytes @ 0x2
+	ds	2
+??_config_pwm:	; 1 bytes @ 0x4
+??_setup:	; 1 bytes @ 0x4
+??_loop:	; 1 bytes @ 0x4
+	ds	2
+??_main:	; 1 bytes @ 0x6
 ;!
 ;!Data Sizes:
 ;!    Strings     0
-;!    Constant    0
+;!    Constant    4
 ;!    Data        0
 ;!    BSS         0
-;!    Persistent  0
+;!    Persistent  2
 ;!    Stack       0
 ;!
 ;!Auto Spaces:
 ;!    Space          Size  Autos    Used
-;!    COMMON           14      0       0
+;!    COMMON           14      6       8
 ;!    BANK0            80      0       0
 ;!    BANK1            32      0       0
 
@@ -358,7 +421,9 @@ __pcstackCOMMON:
 ;!
 ;!Critical Paths under _main in COMMON
 ;!
-;!    None.
+;!    _main->_loop
+;!    _config_pwm->_set_duty_cycle
+;!    _loop->_set_duty_cycle
 ;!
 ;!Critical Paths under _main in BANK0
 ;!
@@ -378,26 +443,38 @@ __pcstackCOMMON:
 ;! ---------------------------------------------------------------------------------
 ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
 ;! ---------------------------------------------------------------------------------
-;! (0) _main                                                 0     0      0       0
+;! (0) _main                                                 0     0      0     392
 ;!                               _loop
 ;!                              _setup
 ;! ---------------------------------------------------------------------------------
-;! (1) _setup                                                0     0      0       0
+;! (1) _setup                                                0     0      0     196
+;!                        _config_gpio
 ;!                         _config_pwm
 ;! ---------------------------------------------------------------------------------
-;! (2) _config_pwm                                           0     0      0       0
+;! (2) _config_pwm                                           0     0      0     196
+;!                     _set_duty_cycle
 ;! ---------------------------------------------------------------------------------
-;! (1) _loop                                                 0     0      0       0
+;! (2) _config_gpio                                          0     0      0       0
 ;! ---------------------------------------------------------------------------------
-;! Estimated maximum stack depth 2
+;! (1) _loop                                                 2     2      0     196
+;!                                              4 COMMON     2     2      0
+;!                     _set_duty_cycle
+;! ---------------------------------------------------------------------------------
+;! (3) _set_duty_cycle                                       4     2      2     196
+;!                                              0 COMMON     4     2      2
+;! ---------------------------------------------------------------------------------
+;! Estimated maximum stack depth 3
 ;! ---------------------------------------------------------------------------------
 ;!
 ;! Call Graph Graphs:
 ;!
 ;! _main (ROOT)
 ;!   _loop
+;!     _set_duty_cycle
 ;!   _setup
+;!     _config_gpio
 ;!     _config_pwm
+;!       _set_duty_cycle
 ;!
 
 ;! Address spaces:
@@ -407,7 +484,7 @@ __pcstackCOMMON:
 ;!EEDATA             100      0       0       0        0.0%
 ;!NULL                 0      0       0       0        0.0%
 ;!CODE                 0      0       0       0        0.0%
-;!COMMON               E      0       0       1        0.0%
+;!COMMON               E      6       8       1       57.1%
 ;!BITSFR0              0      0       0       1        0.0%
 ;!SFR0                 0      0       0       1        0.0%
 ;!BITSFR1              0      0       0       2        0.0%
@@ -416,15 +493,15 @@ __pcstackCOMMON:
 ;!BITBANK0            50      0       0       3        0.0%
 ;!BANK0               50      0       0       4        0.0%
 ;!BANK1               20      0       0       5        0.0%
-;!ABS                  0      0       0       6        0.0%
+;!ABS                  0      0       8       6        0.0%
 ;!BITBANK1            20      0       0       7        0.0%
-;!DATA                 0      0       0       8        0.0%
+;!DATA                 0      0       8       8        0.0%
 
 	global	_main
 
 ;; *************** function _main *****************
 ;; Defined at:
-;;		line 52 in file "02_pwm.c"
+;;		line 84 in file "02_pwm.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -443,7 +520,7 @@ __pcstackCOMMON:
 ;;      Temps:          0       0       0
 ;;      Totals:         0       0       0
 ;;Total ram usage:        0 bytes
-;; Hardware stack levels required when called:    2
+;; Hardware stack levels required when called:    3
 ;; This function calls:
 ;;		_loop
 ;;		_setup
@@ -452,33 +529,33 @@ __pcstackCOMMON:
 ;; This function uses a non-reentrant model
 ;;
 psect	maintext,global,class=CODE,delta=2,split=1,group=0
-	file	"02_pwm.c"
-	line	52
+	line	84
 global __pmaintext
 __pmaintext:	;psect for function _main
 psect	maintext
 	file	"02_pwm.c"
-	line	52
+	line	84
 	global	__size_of_main
 	__size_of_main	equ	__end_of_main-_main
 	
 _main:	
 ;incstack = 0
-	callstack 6
+	callstack 5
 ; Regs used in _main: [wreg+status,2+status,0+btemp+1+pclath+cstack]
-	line	53
+	line	85
 	
-l660:	
+l741:	
 	fcall	_setup
-	line	56
+	line	87
 	
-l662:	
+l66:	
+	line	88
 	fcall	_loop
-	goto	l662
+	goto	l66
 	global	start
 	ljmp	start
 	callstack 0
-	line	58
+	line	90
 GLOBAL	__end_of_main
 	__end_of_main:
 	signat	_main,89
@@ -486,7 +563,88 @@ GLOBAL	__end_of_main
 
 ;; *************** function _setup *****************
 ;; Defined at:
-;;		line 36 in file "02_pwm.c"
+;;		line 59 in file "02_pwm.c"
+;; Parameters:    Size  Location     Type
+;;		None
+;; Auto vars:     Size  Location     Type
+;;		None
+;; Return value:  Size  Location     Type
+;;                  1    wreg      void 
+;; Registers used:
+;;		wreg, status,2, status,0, btemp+1, pclath, cstack
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMMON   BANK0   BANK1
+;;      Params:         0       0       0
+;;      Locals:         0       0       0
+;;      Temps:          0       0       0
+;;      Totals:         0       0       0
+;;Total ram usage:        0 bytes
+;; Hardware stack levels used:    1
+;; Hardware stack levels required when called:    2
+;; This function calls:
+;;		_config_gpio
+;;		_config_pwm
+;; This function is called by:
+;;		_main
+;; This function uses a non-reentrant model
+;;
+psect	text1,local,class=CODE,delta=2,merge=1,group=0
+	line	59
+global __ptext1
+__ptext1:	;psect for function _setup
+psect	text1
+	file	"02_pwm.c"
+	line	59
+	global	__size_of_setup
+	__size_of_setup	equ	__end_of_setup-_setup
+	
+_setup:	
+;incstack = 0
+	callstack 5
+; Regs used in _setup: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+	line	60
+	
+l721:	
+	movlw	low(0FFh)
+	bsf	status, 5	;RP0=1, select bank1
+	movwf	(133)^080h	;volatile
+	line	62
+	
+l723:	
+	bcf	status, 5	;RP0=0, select bank0
+	clrf	(5)	;volatile
+	line	63
+	
+l725:	
+	movlw	low(07h)
+	movwf	(25)	;volatile
+	line	64
+	bsf	status, 5	;RP0=1, select bank1
+	clrf	(159)^080h	;volatile
+	line	66
+	
+l727:	
+	fcall	_config_pwm
+	line	67
+	
+l729:	
+	fcall	_config_gpio
+	line	68
+	
+l53:	
+	return
+	callstack 0
+GLOBAL	__end_of_setup
+	__end_of_setup:
+	signat	_setup,89
+	global	_config_pwm
+
+;; *************** function _config_pwm *****************
+;; Defined at:
+;;		line 28 in file "02_pwm.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -508,61 +666,97 @@ GLOBAL	__end_of_main
 ;; Hardware stack levels used:    1
 ;; Hardware stack levels required when called:    1
 ;; This function calls:
-;;		_config_pwm
+;;		_set_duty_cycle
 ;; This function is called by:
-;;		_main
+;;		_setup
 ;; This function uses a non-reentrant model
 ;;
-psect	text1,local,class=CODE,delta=2,merge=1,group=0
-	line	36
-global __ptext1
-__ptext1:	;psect for function _setup
-psect	text1
+psect	text2,local,class=CODE,delta=2,merge=1,group=0
+	line	28
+global __ptext2
+__ptext2:	;psect for function _config_pwm
+psect	text2
 	file	"02_pwm.c"
-	line	36
-	global	__size_of_setup
-	__size_of_setup	equ	__end_of_setup-_setup
+	line	28
+	global	__size_of_config_pwm
+	__size_of_config_pwm	equ	__end_of_config_pwm-_config_pwm
 	
-_setup:	
+_config_pwm:	
 ;incstack = 0
-	callstack 6
-; Regs used in _setup: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+	callstack 5
+; Regs used in _config_pwm: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+	line	29
+	
+l707:	
+	bsf	status, 5	;RP0=1, select bank1
+	bsf	(1066/8)^080h,(1066)&7	;volatile
+	line	31
+	
+l709:	
+	movlw	low(045h)
+	movwf	(146)^080h	;volatile
+	line	32
+	movlw	low(0Fh)
+	bcf	status, 5	;RP0=0, select bank0
+	movwf	(21)	;volatile
+	line	17
+	movlw	018h
+	movwf	(_pwm_value)
+	movlw	01h
+	movwf	((_pwm_value))+1
+	line	35
+	
+l711:	
+	movf	(_pwm_value+1),w
+	movwf	(set_duty_cycle@value+1)
+	movf	(_pwm_value),w
+	movwf	(set_duty_cycle@value)
+	fcall	_set_duty_cycle
 	line	37
 	
-l648:	
+l713:	
 	bcf	status, 5	;RP0=0, select bank0
-	clrf	(5)	;volatile
+	bcf	(12),1	;volatile
 	line	38
 	
-l650:	
-	movlw	low(07h)
-	movwf	(25)	;volatile
+l715:	
+	bcf	(18),1	;volatile
 	line	39
 	
-l652:	
-	bsf	status, 5	;RP0=1, select bank1
-	clrf	(159)^080h	;volatile
-	line	41
+l717:	
+	bcf	(18),0	;volatile
+	line	40
 	
-l654:	
-	bcf	(1064/8)^080h,(1064)&7	;volatile
+l719:	
+	bsf	(18),2	;volatile
 	line	43
 	
-l656:	
-	fcall	_config_pwm
-	line	44
+l44:	
+	line	42
+	btfss	(12),1	;volatile
+	goto	u71
+	goto	u70
+u71:
+	goto	l44
+u70:
 	
-l31:	
+l46:	
+	line	45
+	bsf	status, 5	;RP0=1, select bank1
+	bcf	(1066/8)^080h,(1066)&7	;volatile
+	line	46
+	
+l47:	
 	return
 	callstack 0
-GLOBAL	__end_of_setup
-	__end_of_setup:
-	signat	_setup,89
-	global	_config_pwm
+GLOBAL	__end_of_config_pwm
+	__end_of_config_pwm:
+	signat	_config_pwm,89
+	global	_config_gpio
 
-;; *************** function _config_pwm *****************
+;; *************** function _config_gpio *****************
 ;; Defined at:
-;;		line 16 in file "02_pwm.c"
+;;		line 48 in file "02_pwm.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -570,7 +764,7 @@ GLOBAL	__end_of_setup
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
-;;		wreg, status,2, status,0, btemp+1
+;;		None
 ;; Tracked objects:
 ;;		On entry : 0/0
 ;;		On exit  : 0/0
@@ -588,88 +782,44 @@ GLOBAL	__end_of_setup
 ;;		_setup
 ;; This function uses a non-reentrant model
 ;;
-psect	text2,local,class=CODE,delta=2,merge=1,group=0
-	line	16
-global __ptext2
-__ptext2:	;psect for function _config_pwm
-psect	text2
+psect	text3,local,class=CODE,delta=2,merge=1,group=0
+	line	48
+global __ptext3
+__ptext3:	;psect for function _config_gpio
+psect	text3
 	file	"02_pwm.c"
-	line	16
-	global	__size_of_config_pwm
-	__size_of_config_pwm	equ	__end_of_config_pwm-_config_pwm
+	line	48
+	global	__size_of_config_gpio
+	__size_of_config_gpio	equ	__end_of_config_gpio-_config_gpio
 	
-_config_pwm:	
+_config_gpio:	
 ;incstack = 0
 	callstack 6
-; Regs used in _config_pwm: [wreg+status,2+status,0+btemp+1]
-	line	17
+; Regs used in _config_gpio: []
+	line	50
 	
-l634:	
+l679:	
 	bsf	status, 5	;RP0=1, select bank1
-	bsf	(1066/8)^080h,(1066)&7	;volatile
-	line	19
+	bcf	(1064/8)^080h,(1064)&7	;volatile
+	line	53
+	bcf	(129)^080h,7	;volatile
+	line	55
+	bsf	(1069/8)^080h,(1069)&7	;volatile
+	line	56
+	bsf	(1197/8)^080h,(1197)&7	;volatile
+	line	57
 	
-l636:	
-	movlw	low(045h)
-	movwf	(146)^080h	;volatile
-	line	20
-	movlw	low(0Fh)
-	bcf	status, 5	;RP0=0, select bank0
-	movwf	(21)	;volatile
-	line	22
-	movlw	low(023h)
-	movwf	(19)	;volatile
-	line	23
-	
-l638:	
-	movlw	low(0C0h)
-	movwf	btemp+1
-	movf	btemp+1,w
-	iorwf	(21),f	;volatile
-	line	25
-	
-l640:	
-	bcf	(12),1	;volatile
-	line	26
-	
-l642:	
-	bcf	(18),1	;volatile
-	line	27
-	
-l644:	
-	bcf	(18),0	;volatile
-	line	28
-	
-l646:	
-	bsf	(18),2	;volatile
-	line	31
-	
-l25:	
-	line	30
-	btfss	(12),1	;volatile
-	goto	u11
-	goto	u10
-u11:
-	goto	l25
-u10:
-	
-l27:	
-	line	33
-	bsf	status, 5	;RP0=1, select bank1
-	bcf	(1066/8)^080h,(1066)&7	;volatile
-	line	34
-	
-l28:	
+l50:	
 	return
 	callstack 0
-GLOBAL	__end_of_config_pwm
-	__end_of_config_pwm:
-	signat	_config_pwm,89
+GLOBAL	__end_of_config_gpio
+	__end_of_config_gpio:
+	signat	_config_gpio,89
 	global	_loop
 
 ;; *************** function _loop *****************
 ;; Defined at:
-;;		line 46 in file "02_pwm.c"
+;;		line 70 in file "02_pwm.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -677,7 +827,7 @@ GLOBAL	__end_of_config_pwm
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
-;;		None
+;;		wreg, status,2, status,0, btemp+1, pclath, cstack
 ;; Tracked objects:
 ;;		On entry : 0/0
 ;;		On exit  : 0/0
@@ -685,50 +835,190 @@ GLOBAL	__end_of_config_pwm
 ;; Data sizes:     COMMON   BANK0   BANK1
 ;;      Params:         0       0       0
 ;;      Locals:         0       0       0
-;;      Temps:          0       0       0
-;;      Totals:         0       0       0
-;;Total ram usage:        0 bytes
+;;      Temps:          2       0       0
+;;      Totals:         2       0       0
+;;Total ram usage:        2 bytes
 ;; Hardware stack levels used:    1
+;; Hardware stack levels required when called:    1
 ;; This function calls:
-;;		Nothing
+;;		_set_duty_cycle
 ;; This function is called by:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text3,local,class=CODE,delta=2,merge=1,group=0
-	line	46
-global __ptext3
-__ptext3:	;psect for function _loop
-psect	text3
+psect	text4,local,class=CODE,delta=2,merge=1,group=0
+	line	70
+global __ptext4
+__ptext4:	;psect for function _loop
+psect	text4
 	file	"02_pwm.c"
-	line	46
+	line	70
 	global	__size_of_loop
 	__size_of_loop	equ	__end_of_loop-_loop
 	
 _loop:	
 ;incstack = 0
-	callstack 7
-; Regs used in _loop: []
-	line	47
+	callstack 6
+; Regs used in _loop: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+	line	71
 	
-l658:	
+l731:	
 	bcf	status, 5	;RP0=0, select bank0
-	bsf	(5),0	;volatile
-	line	48
-# 48 "02_pwm.c"
-nop ;# 
-psect	text3
-	line	49
-	bcf	status, 5	;RP0=0, select bank0
-	bcf	(5),0	;volatile
-	line	50
+	btfsc	(5),5	;volatile
+	goto	u81
+	goto	u80
+u81:
+	goto	l735
+u80:
+	line	72
 	
-l34:	
+l733:	
+	asmopt push
+asmopt off
+movlw	130
+movwf	((??_loop+0)+0+1),f
+	movlw	221
+movwf	((??_loop+0)+0),f
+	u117:
+decfsz	((??_loop+0)+0),f
+	goto	u117
+	decfsz	((??_loop+0)+0+1),f
+	goto	u117
+	nop2
+asmopt pop
+
+	line	75
+	
+l735:	
+	bcf	status, 5	;RP0=0, select bank0
+	btfsc	(5),5	;volatile
+	goto	u91
+	goto	u90
+u91:
+	goto	l61
+u90:
+	line	18
+	
+l737:	
+	movlw	01Ch
+	subwf	(_pwm_value),f
+	movlw	0
+	skipc
+	decf	(_pwm_value+1),f
+	subwf	(_pwm_value+1),f
+	line	77
+	
+l739:	
+	movf	(_pwm_value+1),w
+	movwf	(set_duty_cycle@value+1)
+	movf	(_pwm_value),w
+	movwf	(set_duty_cycle@value)
+	fcall	_set_duty_cycle
+	line	80
+	
+l58:	
+	line	79
+	bcf	status, 5	;RP0=0, select bank0
+	btfss	(5),5	;volatile
+	goto	u101
+	goto	u100
+u101:
+	goto	l58
+u100:
+	line	82
+	
+l61:	
 	return
 	callstack 0
 GLOBAL	__end_of_loop
 	__end_of_loop:
 	signat	_loop,89
+	global	_set_duty_cycle
+
+;; *************** function _set_duty_cycle *****************
+;; Defined at:
+;;		line 23 in file "02_pwm.c"
+;; Parameters:    Size  Location     Type
+;;  value           2    0[COMMON] unsigned short 
+;; Auto vars:     Size  Location     Type
+;;		None
+;; Return value:  Size  Location     Type
+;;                  1    wreg      void 
+;; Registers used:
+;;		wreg, status,2, status,0, btemp+1
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMMON   BANK0   BANK1
+;;      Params:         2       0       0
+;;      Locals:         0       0       0
+;;      Temps:          2       0       0
+;;      Totals:         4       0       0
+;;Total ram usage:        4 bytes
+;; Hardware stack levels used:    1
+;; This function calls:
+;;		Nothing
+;; This function is called by:
+;;		_config_pwm
+;;		_loop
+;; This function uses a non-reentrant model
+;;
+psect	text5,local,class=CODE,delta=2,merge=1,group=0
+	line	23
+global __ptext5
+__ptext5:	;psect for function _set_duty_cycle
+psect	text5
+	file	"02_pwm.c"
+	line	23
+	global	__size_of_set_duty_cycle
+	__size_of_set_duty_cycle	equ	__end_of_set_duty_cycle-_set_duty_cycle
+	
+_set_duty_cycle:	
+;incstack = 0
+	callstack 5
+; Regs used in _set_duty_cycle: [wreg+status,2+status,0+btemp+1]
+	line	24
+	
+l703:	
+	movf	(set_duty_cycle@value+1),w
+	movwf	(??_set_duty_cycle+0)+0+1
+	movf	(set_duty_cycle@value),w
+	movwf	(??_set_duty_cycle+0)+0
+	clrc
+	rrf	(??_set_duty_cycle+0)+1,f
+	rrf	(??_set_duty_cycle+0)+0,f
+	clrc
+	rrf	(??_set_duty_cycle+0)+1,f
+	rrf	(??_set_duty_cycle+0)+0,f
+	movf	0+(??_set_duty_cycle+0)+0,w
+	bcf	status, 5	;RP0=0, select bank0
+	movwf	(19)	;volatile
+	line	25
+	
+l705:	
+	movf	(set_duty_cycle@value),w
+	movwf	(??_set_duty_cycle+0)+0
+	movlw	(04h)-1
+u65:
+	clrc
+	rlf	(??_set_duty_cycle+0)+0,f
+	addlw	-1
+	skipz
+	goto	u65
+	clrc
+	rlf	(??_set_duty_cycle+0)+0,w
+	movwf	btemp+1
+	movf	btemp+1,w
+	iorwf	(21),f	;volatile
+	line	26
+	
+l41:	
+	return
+	callstack 0
+GLOBAL	__end_of_set_duty_cycle
+	__end_of_set_duty_cycle:
+	signat	_set_duty_cycle,4217
 global	___latbits
 ___latbits	equ	0
 	global	btemp

@@ -1,4 +1,5 @@
 #include <xc.h>
+#include <stdbool.h>
 
 #pragma config FOSC  = INTOSCIO
 #pragma config WDTE  = OFF
@@ -17,8 +18,8 @@
 const unsigned short MAX_PWM_VALUE = 280;
 const unsigned short DELTA_PWM = 28;
 
-unsigned int pwm_value;
-
+int pwm_value;
+bool increment;
 
 void set_duty_cycle( unsigned short value) {
 	CCPR1L   = (unsigned char) (value >> 2);		// duty cycle
@@ -32,6 +33,8 @@ void config_pwm( void) {
 	CCP1CON = 0x0F;				// pwm mode, active low
 
 	pwm_value = MAX_PWM_VALUE;
+	increment = false;
+
 	set_duty_cycle( pwm_value);
 
 	PIR1bits.TMR2IF   = 0;		// timer 2, prescale and activation
@@ -73,11 +76,25 @@ void loop () {
 	}
 
 	if( GPIO5 == 0) {
-		pwm_value -= DELTA_PWM;
+		if( pwm_value >= MAX_PWM_VALUE) {
+			__delay_ms( 300);
+			increment = false;
+		}
+
+		if ( pwm_value <= 0) {
+			__delay_ms( 300);
+			increment = true;
+		}
+
+		if ( increment) {
+			pwm_value += DELTA_PWM;
+		} else {
+			pwm_value -= DELTA_PWM;
+		}
+
 		set_duty_cycle( pwm_value);
 
-		while( GPIO5 == 0) {			// wait stop pulsation
-		}
+		__delay_ms( 300);
 	}
 }
 

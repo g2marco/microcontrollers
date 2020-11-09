@@ -1,11 +1,11 @@
-subtitle "Microchip MPLAB XC8 C Compiler v2.20 (Free license) build 20200408173844 Og1 "
+subtitle "Microchip MPLAB XC8 C Compiler v2.31 (Free license) build 20201012212115 Og1 "
 
 pagewidth 120
 
 	opt flic
 
 	processor	12F683
-include "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\12f683.cgen.inc"
+include "/opt/microchip/xc8/v2.31/pic/include/proc/12f683.cgen.inc"
 getbyte	macro	val,pos
 	(((val) >> (8 * pos)) and 0xff)
 endm
@@ -93,177 +93,177 @@ skipnc	macro
 skipnz	macro
 	btfsc	3,2
 	endm
-# 54 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 55 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INDF equ 00h ;# 
-# 61 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 62 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR0 equ 01h ;# 
-# 68 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 69 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCL equ 02h ;# 
-# 75 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 76 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 STATUS equ 03h ;# 
-# 161 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 162 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 FSR equ 04h ;# 
-# 168 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 169 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 GPIO equ 05h ;# 
-# 218 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 219 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCLATH equ 0Ah ;# 
-# 238 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 239 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INTCON equ 0Bh ;# 
-# 316 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 317 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIR1 equ 0Ch ;# 
-# 387 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 388 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1 equ 0Eh ;# 
-# 394 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 395 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1L equ 0Eh ;# 
-# 401 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 402 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1H equ 0Fh ;# 
-# 408 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 409 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T1CON equ 010h ;# 
-# 485 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 486 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR2 equ 011h ;# 
-# 492 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 493 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T2CON equ 012h ;# 
-# 563 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 564 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1 equ 013h ;# 
-# 570 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 571 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1L equ 013h ;# 
-# 577 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 578 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1H equ 014h ;# 
-# 584 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 585 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCP1CON equ 015h ;# 
-# 648 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 649 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WDTCON equ 018h ;# 
-# 701 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 702 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON0 equ 019h ;# 
-# 760 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 761 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON1 equ 01Ah ;# 
-# 786 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 787 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESH equ 01Eh ;# 
-# 793 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 794 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADCON0 equ 01Fh ;# 
-# 883 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 884 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OPTION_REG equ 081h ;# 
-# 953 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 954 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TRISIO equ 085h ;# 
-# 1003 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1004 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIE1 equ 08Ch ;# 
-# 1074 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1075 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCON equ 08Eh ;# 
-# 1113 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1114 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCCON equ 08Fh ;# 
-# 1178 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1179 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCTUNE equ 090h ;# 
-# 1230 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1231 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PR2 equ 092h ;# 
-# 1237 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1238 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPU equ 095h ;# 
-# 1242 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1243 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPUA equ 095h ;# 
-# 1391 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1392 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOC equ 096h ;# 
-# 1396 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1397 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOCA equ 096h ;# 
-# 1565 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1566 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 VRCON equ 099h ;# 
-# 1625 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1626 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDAT equ 09Ah ;# 
-# 1630 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1631 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDATA equ 09Ah ;# 
-# 1663 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1664 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEADR equ 09Bh ;# 
-# 1670 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1671 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON1 equ 09Ch ;# 
-# 1708 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1709 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON2 equ 09Dh ;# 
-# 1715 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1716 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESL equ 09Eh ;# 
-# 1722 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1723 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ANSEL equ 09Fh ;# 
-# 54 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 55 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INDF equ 00h ;# 
-# 61 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 62 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR0 equ 01h ;# 
-# 68 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 69 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCL equ 02h ;# 
-# 75 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 76 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 STATUS equ 03h ;# 
-# 161 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 162 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 FSR equ 04h ;# 
-# 168 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 169 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 GPIO equ 05h ;# 
-# 218 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 219 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCLATH equ 0Ah ;# 
-# 238 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 239 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INTCON equ 0Bh ;# 
-# 316 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 317 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIR1 equ 0Ch ;# 
-# 387 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 388 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1 equ 0Eh ;# 
-# 394 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 395 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1L equ 0Eh ;# 
-# 401 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 402 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1H equ 0Fh ;# 
-# 408 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 409 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T1CON equ 010h ;# 
-# 485 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 486 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR2 equ 011h ;# 
-# 492 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 493 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T2CON equ 012h ;# 
-# 563 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 564 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1 equ 013h ;# 
-# 570 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 571 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1L equ 013h ;# 
-# 577 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 578 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1H equ 014h ;# 
-# 584 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 585 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCP1CON equ 015h ;# 
-# 648 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 649 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WDTCON equ 018h ;# 
-# 701 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 702 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON0 equ 019h ;# 
-# 760 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 761 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON1 equ 01Ah ;# 
-# 786 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 787 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESH equ 01Eh ;# 
-# 793 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 794 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADCON0 equ 01Fh ;# 
-# 883 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 884 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OPTION_REG equ 081h ;# 
-# 953 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 954 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TRISIO equ 085h ;# 
-# 1003 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1004 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIE1 equ 08Ch ;# 
-# 1074 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1075 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCON equ 08Eh ;# 
-# 1113 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1114 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCCON equ 08Fh ;# 
-# 1178 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1179 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCTUNE equ 090h ;# 
-# 1230 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1231 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PR2 equ 092h ;# 
-# 1237 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1238 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPU equ 095h ;# 
-# 1242 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1243 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPUA equ 095h ;# 
-# 1391 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1392 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOC equ 096h ;# 
-# 1396 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1397 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOCA equ 096h ;# 
-# 1565 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1566 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 VRCON equ 099h ;# 
-# 1625 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1626 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDAT equ 09Ah ;# 
-# 1630 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1631 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDATA equ 09Ah ;# 
-# 1663 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1664 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEADR equ 09Bh ;# 
-# 1670 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1671 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON1 equ 09Ch ;# 
-# 1708 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1709 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON2 equ 09Dh ;# 
-# 1715 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1716 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESL equ 09Eh ;# 
-# 1722 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1723 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ANSEL equ 09Fh ;# 
 	FNCALL	_main,_loop
 	FNCALL	_main,_setup
@@ -521,7 +521,7 @@ set_duty_cycle@value:	; 2 bytes @ 0x0
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
-;;		wreg, status,2, status,0, btemp+1, pclath, cstack
+;;		wreg, status,2, status,0, pclath, cstack
 ;; Tracked objects:
 ;;		On entry : B00/0
 ;;		On exit  : 0/0
@@ -554,10 +554,10 @@ psect	maintext
 _main:	
 ;incstack = 0
 	callstack 5
-; Regs used in _main: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
 	line	102
 	
-l784:	
+l780:	
 	fcall	_setup
 	line	104
 	
@@ -584,7 +584,7 @@ GLOBAL	__end_of_main
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
-;;		wreg, status,2, status,0, btemp+1, pclath, cstack
+;;		wreg, status,2, status,0, pclath, cstack
 ;; Tracked objects:
 ;;		On entry : 0/0
 ;;		On exit  : 0/0
@@ -617,21 +617,21 @@ psect	text1
 _setup:	
 ;incstack = 0
 	callstack 5
-; Regs used in _setup: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+; Regs used in _setup: [wreg+status,2+status,0+pclath+cstack]
 	line	63
 	
-l746:	
+l742:	
 	movlw	low(0FFh)
 	bsf	status, 5	;RP0=1, select bank1
 	movwf	(133)^080h	;volatile
 	line	65
 	
-l748:	
+l744:	
 	bcf	status, 5	;RP0=0, select bank0
 	clrf	(5)	;volatile
 	line	66
 	
-l750:	
+l746:	
 	movlw	low(07h)
 	movwf	(25)	;volatile
 	line	67
@@ -639,11 +639,11 @@ l750:
 	clrf	(159)^080h	;volatile
 	line	69
 	
-l752:	
+l748:	
 	fcall	_config_pwm
 	line	70
 	
-l754:	
+l750:	
 	fcall	_config_gpio
 	line	71
 	
@@ -665,7 +665,7 @@ GLOBAL	__end_of_setup
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
-;;		wreg, status,2, status,0, btemp+1, pclath, cstack
+;;		wreg, status,2, status,0, pclath, cstack
 ;; Tracked objects:
 ;;		On entry : 0/0
 ;;		On exit  : 0/0
@@ -697,15 +697,15 @@ psect	text2
 _config_pwm:	
 ;incstack = 0
 	callstack 5
-; Regs used in _config_pwm: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+; Regs used in _config_pwm: [wreg+status,2+status,0+pclath+cstack]
 	line	30
 	
-l730:	
+l726:	
 	bsf	status, 5	;RP0=1, select bank1
 	bsf	(1066/8)^080h,(1066)&7	;volatile
 	line	32
 	
-l732:	
+l728:	
 	movlw	low(045h)
 	movwf	(146)^080h	;volatile
 	line	33
@@ -719,11 +719,11 @@ l732:
 	movwf	((_pwm_value))+1
 	line	36
 	
-l734:	
+l730:	
 	clrf	(_increment)
 	line	38
 	
-l736:	
+l732:	
 	movf	(_pwm_value+1),w
 	movwf	(set_duty_cycle@value+1)
 	movf	(_pwm_value),w
@@ -731,20 +731,20 @@ l736:
 	fcall	_set_duty_cycle
 	line	40
 	
-l738:	
+l734:	
 	bcf	status, 5	;RP0=0, select bank0
 	bcf	(12),1	;volatile
 	line	41
 	
-l740:	
+l736:	
 	bcf	(18),1	;volatile
 	line	42
 	
-l742:	
+l738:	
 	bcf	(18),0	;volatile
 	line	43
 	
-l744:	
+l740:	
 	bsf	(18),2	;volatile
 	line	46
 	
@@ -815,7 +815,7 @@ _config_gpio:
 ; Regs used in _config_gpio: []
 	line	53
 	
-l684:	
+l682:	
 	bsf	status, 5	;RP0=1, select bank1
 	bcf	(1064/8)^080h,(1064)&7	;volatile
 	line	56
@@ -844,7 +844,7 @@ GLOBAL	__end_of_config_gpio
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
-;;		wreg, status,2, status,0, btemp+1, pclath, cstack
+;;		wreg, status,2, status,0, pclath, cstack
 ;; Tracked objects:
 ;;		On entry : 0/0
 ;;		On exit  : 0/0
@@ -876,20 +876,20 @@ psect	text4
 _loop:	
 ;incstack = 0
 	callstack 6
-; Regs used in _loop: [wreg+status,2+status,0+btemp+1+pclath+cstack]
+; Regs used in _loop: [wreg+status,2+status,0+pclath+cstack]
 	line	74
 	
-l756:	
+l752:	
 	bcf	status, 5	;RP0=0, select bank0
 	btfsc	(5),5	;volatile
 	goto	u101
 	goto	u100
 u101:
-	goto	l760
+	goto	l756
 u100:
 	line	75
 	
-l758:	
+l754:	
 	asmopt push
 asmopt off
 movlw	130
@@ -906,7 +906,7 @@ asmopt pop
 
 	line	78
 	
-l760:	
+l756:	
 	bcf	status, 5	;RP0=0, select bank0
 	btfsc	(5),5	;volatile
 	goto	u111
@@ -916,7 +916,7 @@ u111:
 u110:
 	line	79
 	
-l762:	
+l758:	
 	movlw	01h
 	subwf	(_pwm_value+1),w
 	movlw	018h
@@ -926,11 +926,11 @@ l762:
 	goto	u121
 	goto	u120
 u121:
-	goto	l768
+	goto	l764
 u120:
 	line	80
 	
-l764:	
+l760:	
 	asmopt push
 asmopt off
 movlw  2
@@ -950,31 +950,22 @@ asmopt pop
 
 	line	81
 	
-l766:	
+l762:	
 	clrf	(_increment)
 	line	84
 	
-l768:	
-	movf	(_pwm_value+1),w
-	xorlw	80h
-	movwf	btemp+1
-	movlw	(0)^80h
-	subwf	btemp+1,w
-	skipz
-	goto	u135
-	movlw	01h
-	subwf	(_pwm_value),w
-u135:
-
-	skipnc
+l764:	
+	movf	((_pwm_value)),w
+iorwf	((_pwm_value+1)),w
+	btfss	status,2
 	goto	u131
 	goto	u130
 u131:
-	goto	l774
+	goto	l770
 u130:
 	line	85
 	
-l770:	
+l766:	
 	asmopt push
 asmopt off
 movlw  2
@@ -994,22 +985,22 @@ asmopt pop
 
 	line	86
 	
-l772:	
+l768:	
 	clrf	(_increment)
 	incf	(_increment),f
 	line	89
 	
-l774:	
+l770:	
 	movf	((_increment)),w
 	btfsc	status,2
 	goto	u141
 	goto	u140
 u141:
-	goto	l778
+	goto	l774
 u140:
 	line	19
 	
-l776:	
+l772:	
 	movlw	01Ch
 	addwf	(_pwm_value),f
 	skipnc
@@ -1017,19 +1008,19 @@ l776:
 	movlw	0
 	addwf	(_pwm_value+1),f
 	line	91
-	goto	l780
+	goto	l776
 	line	19
 	
-l778:	
-	movlw	0E4h
-	addwf	(_pwm_value),f
-	skipnc
-	incf	(_pwm_value+1),f
-	movlw	0FFh
-	addwf	(_pwm_value+1),f
+l774:	
+	movlw	01Ch
+	subwf	(_pwm_value),f
+	movlw	0
+	skipc
+	decf	(_pwm_value+1),f
+	subwf	(_pwm_value+1),f
 	line	95
 	
-l780:	
+l776:	
 	movf	(_pwm_value+1),w
 	movwf	(set_duty_cycle@value+1)
 	movf	(_pwm_value),w
@@ -1037,7 +1028,7 @@ l780:
 	fcall	_set_duty_cycle
 	line	97
 	
-l782:	
+l778:	
 	asmopt push
 asmopt off
 movlw  2
@@ -1075,7 +1066,7 @@ GLOBAL	__end_of_loop
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
-;;		wreg, status,2, status,0, btemp+1
+;;		wreg, status,2, status,0
 ;; Tracked objects:
 ;;		On entry : 0/0
 ;;		On exit  : 0/0
@@ -1107,10 +1098,10 @@ psect	text5
 _set_duty_cycle:	
 ;incstack = 0
 	callstack 5
-; Regs used in _set_duty_cycle: [wreg+status,2+status,0+btemp+1]
+; Regs used in _set_duty_cycle: [wreg+status,2+status,0]
 	line	25
 	
-l726:	
+l724:	
 	movf	(set_duty_cycle@value+1),w
 	movwf	(??_set_duty_cycle+0)+0+1
 	movf	(set_duty_cycle@value),w
@@ -1125,8 +1116,6 @@ l726:
 	bcf	status, 5	;RP0=0, select bank0
 	movwf	(19)	;volatile
 	line	26
-	
-l728:	
 	movf	(set_duty_cycle@value),w
 	movwf	(??_set_duty_cycle+0)+0
 	movlw	(04h)-1
@@ -1138,8 +1127,8 @@ u85:
 	goto	u85
 	clrc
 	rlf	(??_set_duty_cycle+0)+0,w
-	movwf	btemp+1
-	movf	btemp+1,w
+	movwf	(??_set_duty_cycle+1)+0
+	movf	(??_set_duty_cycle+1)+0,w
 	iorwf	(21),f	;volatile
 	line	27
 	

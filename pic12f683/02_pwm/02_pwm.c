@@ -18,7 +18,7 @@
 const unsigned short MAX_PWM_VALUE = 280;
 const unsigned short DELTA_PWM = 28;
 
-int pwm_value;
+unsigned short pwm_value;
 bool increment;
 
 void set_duty_cycle( unsigned short value) {

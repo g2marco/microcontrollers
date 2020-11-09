@@ -1,11 +1,11 @@
-subtitle "Microchip MPLAB XC8 C Compiler v2.20 (Free license) build 20200408173844 Og1 "
+subtitle "Microchip MPLAB XC8 C Compiler v2.31 (Free license) build 20201012212115 Og1 "
 
 pagewidth 120
 
 	opt flic
 
 	processor	12F683
-include "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\12f683.cgen.inc"
+include "/opt/microchip/xc8/v2.31/pic/include/proc/12f683.cgen.inc"
 getbyte	macro	val,pos
 	(((val) >> (8 * pos)) and 0xff)
 endm
@@ -93,177 +93,177 @@ skipnc	macro
 skipnz	macro
 	btfsc	3,2
 	endm
-# 54 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 55 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INDF equ 00h ;# 
-# 61 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 62 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR0 equ 01h ;# 
-# 68 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 69 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCL equ 02h ;# 
-# 75 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 76 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 STATUS equ 03h ;# 
-# 161 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 162 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 FSR equ 04h ;# 
-# 168 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 169 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 GPIO equ 05h ;# 
-# 218 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 219 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCLATH equ 0Ah ;# 
-# 238 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 239 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INTCON equ 0Bh ;# 
-# 316 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 317 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIR1 equ 0Ch ;# 
-# 387 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 388 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1 equ 0Eh ;# 
-# 394 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 395 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1L equ 0Eh ;# 
-# 401 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 402 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1H equ 0Fh ;# 
-# 408 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 409 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T1CON equ 010h ;# 
-# 485 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 486 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR2 equ 011h ;# 
-# 492 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 493 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T2CON equ 012h ;# 
-# 563 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 564 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1 equ 013h ;# 
-# 570 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 571 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1L equ 013h ;# 
-# 577 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 578 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1H equ 014h ;# 
-# 584 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 585 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCP1CON equ 015h ;# 
-# 648 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 649 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WDTCON equ 018h ;# 
-# 701 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 702 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON0 equ 019h ;# 
-# 760 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 761 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON1 equ 01Ah ;# 
-# 786 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 787 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESH equ 01Eh ;# 
-# 793 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 794 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADCON0 equ 01Fh ;# 
-# 883 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 884 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OPTION_REG equ 081h ;# 
-# 953 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 954 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TRISIO equ 085h ;# 
-# 1003 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1004 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIE1 equ 08Ch ;# 
-# 1074 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1075 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCON equ 08Eh ;# 
-# 1113 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1114 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCCON equ 08Fh ;# 
-# 1178 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1179 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCTUNE equ 090h ;# 
-# 1230 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1231 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PR2 equ 092h ;# 
-# 1237 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1238 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPU equ 095h ;# 
-# 1242 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1243 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPUA equ 095h ;# 
-# 1391 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1392 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOC equ 096h ;# 
-# 1396 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1397 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOCA equ 096h ;# 
-# 1565 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1566 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 VRCON equ 099h ;# 
-# 1625 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1626 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDAT equ 09Ah ;# 
-# 1630 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1631 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDATA equ 09Ah ;# 
-# 1663 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1664 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEADR equ 09Bh ;# 
-# 1670 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1671 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON1 equ 09Ch ;# 
-# 1708 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1709 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON2 equ 09Dh ;# 
-# 1715 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1716 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESL equ 09Eh ;# 
-# 1722 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1723 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ANSEL equ 09Fh ;# 
-# 54 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 55 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INDF equ 00h ;# 
-# 61 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 62 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR0 equ 01h ;# 
-# 68 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 69 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCL equ 02h ;# 
-# 75 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 76 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 STATUS equ 03h ;# 
-# 161 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 162 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 FSR equ 04h ;# 
-# 168 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 169 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 GPIO equ 05h ;# 
-# 218 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 219 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCLATH equ 0Ah ;# 
-# 238 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 239 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 INTCON equ 0Bh ;# 
-# 316 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 317 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIR1 equ 0Ch ;# 
-# 387 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 388 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1 equ 0Eh ;# 
-# 394 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 395 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1L equ 0Eh ;# 
-# 401 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 402 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR1H equ 0Fh ;# 
-# 408 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 409 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T1CON equ 010h ;# 
-# 485 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 486 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TMR2 equ 011h ;# 
-# 492 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 493 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 T2CON equ 012h ;# 
-# 563 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 564 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1 equ 013h ;# 
-# 570 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 571 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1L equ 013h ;# 
-# 577 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 578 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCPR1H equ 014h ;# 
-# 584 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 585 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CCP1CON equ 015h ;# 
-# 648 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 649 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WDTCON equ 018h ;# 
-# 701 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 702 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON0 equ 019h ;# 
-# 760 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 761 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 CMCON1 equ 01Ah ;# 
-# 786 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 787 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESH equ 01Eh ;# 
-# 793 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 794 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADCON0 equ 01Fh ;# 
-# 883 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 884 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OPTION_REG equ 081h ;# 
-# 953 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 954 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 TRISIO equ 085h ;# 
-# 1003 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1004 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PIE1 equ 08Ch ;# 
-# 1074 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1075 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PCON equ 08Eh ;# 
-# 1113 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1114 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCCON equ 08Fh ;# 
-# 1178 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1179 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 OSCTUNE equ 090h ;# 
-# 1230 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1231 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 PR2 equ 092h ;# 
-# 1237 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1238 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPU equ 095h ;# 
-# 1242 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1243 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 WPUA equ 095h ;# 
-# 1391 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1392 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOC equ 096h ;# 
-# 1396 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1397 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 IOCA equ 096h ;# 
-# 1565 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1566 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 VRCON equ 099h ;# 
-# 1625 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1626 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDAT equ 09Ah ;# 
-# 1630 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1631 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEDATA equ 09Ah ;# 
-# 1663 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1664 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EEADR equ 09Bh ;# 
-# 1670 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1671 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON1 equ 09Ch ;# 
-# 1708 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1709 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 EECON2 equ 09Dh ;# 
-# 1715 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1716 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ADRESL equ 09Eh ;# 
-# 1722 "C:\Program Files\Microchip\xc8\v2.20\pic\include\proc\pic12f683.h"
+# 1723 "/opt/microchip/xc8/v2.31/pic/include/proc/pic12f683.h"
 ANSEL equ 09Fh ;# 
 	FNCALL	_main,_loop
 	FNCALL	_main,_setup
@@ -405,7 +405,7 @@ __pcstackCOMMON:
 
 ;; *************** function _main *****************
 ;; Defined at:
-;;		line 30 in file "01_led_blink.c"
+;;		line 29 in file "01_led_blink.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -434,12 +434,12 @@ __pcstackCOMMON:
 ;;
 psect	maintext,global,class=CODE,delta=2,split=1,group=0
 	file	"01_led_blink.c"
-	line	30
+	line	29
 global __pmaintext
 __pmaintext:	;psect for function _main
 psect	maintext
 	file	"01_led_blink.c"
-	line	30
+	line	29
 	global	__size_of_main
 	__size_of_main	equ	__end_of_main-_main
 	
@@ -447,11 +447,11 @@ _main:
 ;incstack = 0
 	callstack 7
 ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
-	line	31
+	line	30
 	
 l626:	
 	fcall	_setup
-	line	34
+	line	33
 	
 l628:	
 	fcall	_loop
@@ -459,7 +459,7 @@ l628:
 	global	start
 	ljmp	start
 	callstack 0
-	line	36
+	line	35
 GLOBAL	__end_of_main
 	__end_of_main:
 	signat	_main,89
@@ -467,7 +467,7 @@ GLOBAL	__end_of_main
 
 ;; *************** function _setup *****************
 ;; Defined at:
-;;		line 16 in file "01_led_blink.c"
+;;		line 15 in file "01_led_blink.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -494,12 +494,12 @@ GLOBAL	__end_of_main
 ;; This function uses a non-reentrant model
 ;;
 psect	text1,local,class=CODE,delta=2,merge=1,group=0
-	line	16
+	line	15
 global __ptext1
 __ptext1:	;psect for function _setup
 psect	text1
 	file	"01_led_blink.c"
-	line	16
+	line	15
 	global	__size_of_setup
 	__size_of_setup	equ	__end_of_setup-_setup
 	
@@ -507,26 +507,26 @@ _setup:
 ;incstack = 0
 	callstack 7
 ; Regs used in _setup: [wreg+status,2]
-	line	17
+	line	16
 	
 l616:	
 	bcf	status, 5	;RP0=0, select bank0
 	clrf	(5)	;volatile
-	line	18
+	line	17
 	
 l618:	
 	movlw	low(07h)
 	movwf	(25)	;volatile
-	line	19
+	line	18
 	
 l620:	
 	bsf	status, 5	;RP0=1, select bank1
 	clrf	(159)^080h	;volatile
-	line	21
+	line	20
 	
 l622:	
 	bcf	(1064/8)^080h,(1064)&7	;volatile
-	line	22
+	line	21
 	
 l13:	
 	return
@@ -538,7 +538,7 @@ GLOBAL	__end_of_setup
 
 ;; *************** function _loop *****************
 ;; Defined at:
-;;		line 24 in file "01_led_blink.c"
+;;		line 23 in file "01_led_blink.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -565,12 +565,12 @@ GLOBAL	__end_of_setup
 ;; This function uses a non-reentrant model
 ;;
 psect	text2,local,class=CODE,delta=2,merge=1,group=0
-	line	24
+	line	23
 global __ptext2
 __ptext2:	;psect for function _loop
 psect	text2
 	file	"01_led_blink.c"
-	line	24
+	line	23
 	global	__size_of_loop
 	__size_of_loop	equ	__end_of_loop-_loop
 	
@@ -578,19 +578,19 @@ _loop:
 ;incstack = 0
 	callstack 7
 ; Regs used in _loop: []
-	line	25
+	line	24
 	
 l624:	
 	bcf	status, 5	;RP0=0, select bank0
 	bsf	(5),0	;volatile
-	line	26
-# 26 "01_led_blink.c"
+	line	25
+# 25 "01_led_blink.c"
 nop ;# 
 psect	text2
-	line	27
+	line	26
 	bcf	status, 5	;RP0=0, select bank0
 	bcf	(5),0	;volatile
-	line	28
+	line	27
 	
 l16:	
 	return

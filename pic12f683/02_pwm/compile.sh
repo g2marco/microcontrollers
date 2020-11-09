@@ -1,10 +1,12 @@
 #!/bin/bash
+# 
 
-# program compilation
+# compiles program
 
-xc8-cc -mcpu=12F683 01_led_blink.c
+xc8-cc -mcpu=12F683 02_pwm.c
 
-# intermediate file cleaning
+# erases intermediate files
+
 rm *.cmf
 rm *.elf
 rm *.d

@@ -10,7 +10,6 @@
 #pragma config IESO  = OFF
 #pragma config FCMEN = OFF
 
-
 #define GPIO0 GPIObits.GP0
 
 void setup( void ){

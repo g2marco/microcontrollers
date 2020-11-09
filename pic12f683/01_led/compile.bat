@@ -1,6 +1,6 @@
 @ echo off
 
-xc8-cc -mcpu=12F683 01_led_blink.c
+xc8-ccxc8 -mcpu=12F683 01_led_blink.c
 
 del *.cmf
 del *.elf

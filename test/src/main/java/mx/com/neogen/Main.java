@@ -1,9 +1,10 @@
 package mx.com.neogen;
 
-import java.io.IOException;
 import mx.com.neogen.code.Preprocessor;
 import mx.com.neogen.code.SentenceParser;
 import mx.com.neogen.code.impls.ProyectGenerator;
+
+import java.io.IOException;
 
 public class Main {
     
@@ -17,7 +18,7 @@ public class Main {
         var parser       = new SentenceParser();
         
         var sentences = preprocessor.readSentences( PROGRAM_PATH);
-        var programa  = parser.parse( sentences);
+        var programa = parser.parse( sentences);
         
         System.out.println( programa);
         

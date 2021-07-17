@@ -30,7 +30,7 @@
             <version>2.3</version>
         </dependency>
     </dependencies>
-       
+
     <build>
         <plugins>
             <plugin>
@@ -42,7 +42,6 @@
                     <target>${java.jdk.version}</target>
                     <optimize>true</optimize>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                 </configuration>
             </plugin>
 			

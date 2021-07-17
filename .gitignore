@@ -1,2 +1,6 @@
+*.iml
 /.idea/
+/test/.idea/
 /test/target/
+/pic12f683/03_basic_assignment/.idea/
+/pic12f683/template_proyect/.idea/

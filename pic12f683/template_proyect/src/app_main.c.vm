@@ -1,0 +1,58 @@
+\#include <xc.h>
+\#include <stdbool.h>
+
+\#include "libs\device_pinout.h"
+
+/**
+ *  The program is generated automatically 
+ */  
+
+bool tick;
+
+void __interrupt() general_isr( void) {
+	if (TMR2IE && TMR2IF) {
+        TMR2IF=0;
+		tick = true;
+    }
+}
+
+#foreach( $signal in $data.signals)
+#if( $signal.type == 'input')
+
+bool isDebouncing_${signal.target.index} = false;
+unsigned char ticks_${signal.target.index} = 0;
+__bit ${signal.name} = 0; 
+
+void debounce_input_${signal.target.index}() {
+    if( isDebouncing_${signal.target.index}) {  //  input GP${signal.target.index} is debouncing
+        if( --ticks_${signal.target.index} == 0) {  //  the number of ticks has passed
+            // sets change flag before assign new value
+            ${signal.name} = raw_${signal.name};  //  ends debouncing
+            isDebouncing_${signal.target.index} = false;
+        }
+    } else {
+        if ( raw_${signal.name} != ${signal.name}) {
+            ticks_${signal.target.index} = 100;
+            isDebouncing_${signal.target.index} = true;
+        }
+    }
+}
+#end
+#end
+
+void loop( void) {
+    if ( tick) {
+        #foreach( $signal in $data.signals)
+        #if( $signal.type == 'input')
+        debounce_input_${signal.target.index}();
+        #end
+        #end
+        
+        #foreach( $assignment in $data.assignments)
+        ${assignment.signal} = ${assignment.value};
+        #end
+
+        tick = false;
+    }
+}
+

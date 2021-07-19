@@ -11,11 +11,14 @@ import java.util.List;
 public class ExpressionParser implements Parser {
     
     private final Operator[] operators;
+    private final boolean debug;
     
     
-    public ExpressionParser( Operator[] operators) {
+    public ExpressionParser( Operator[] operators, boolean debug) {
         super();
+        
         this.operators = operators;
+        this.debug = debug;
     }
     
     
@@ -35,20 +38,20 @@ public class ExpressionParser implements Parser {
         
         int uptoIdx = findAgrupationStart( expression);
         
-        info( "\nbefore: " + expression + ", upto: " + uptoIdx);
+        logDebug( "\nbefore: " + expression + ", upto: " + uptoIdx);
         
         if ( uptoIdx == 0) {
             expression = expression.substring( 1, expression.length() - 1);
             uptoIdx = findAgrupationStart( expression);
         }
         
-        info( "after : " + expression + ", upto: " + uptoIdx);
+        logDebug( "after : " + expression + ", upto: " + uptoIdx);
          
-        info( "\tgetting binary operator" );
+        logDebug( "\tgetting binary operator" );
         var operator = findOperator( OperatorTypeEnum.BINARY, expression, uptoIdx);
         
         if( operator == null) {
-            info( "\tgetting unary operator");
+            logDebug( "\tgetting unary operator");
             operator = findOperator( OperatorTypeEnum.UNARY, expression, uptoIdx);
         } 
         
@@ -101,7 +104,7 @@ public class ExpressionParser implements Parser {
         int startIdx = findEndOfAgrupation(expression);
         expression = expression.substring( startIdx, uptoIndex);
         
-        info( "\t\t" + expression);
+        logDebug( "\t\t" + expression);
         
         int maxIdx = 0;
         int topIdx;
@@ -117,7 +120,7 @@ public class ExpressionParser implements Parser {
                 continue;
             }
             
-            info( "\t\toperator: " + operator.getValue() + ", indice: " + idx);
+            logDebug( "\t\toperator: " + operator.getValue() + ", indice: " + idx);
             
             topIdx = idx + operator.getValue().length();
             if ( item == null) {
@@ -143,7 +146,7 @@ public class ExpressionParser implements Parser {
             }
         }
         
-        info( "\t\toperator found: " + item);
+        logDebug( "\t\toperator found: " + item);
         
         return item; 
     }
@@ -305,7 +308,10 @@ public class ExpressionParser implements Parser {
         }
     }
         
-    private void info( Object data) {
+    private void logDebug( Object data) {
+        if ( !debug) {
+            return;
+        }
         System.out.println( data);
     }
 }

@@ -8,7 +8,7 @@ import mx.com.neogen.code.ExpressionParser;
 import mx.com.neogen.code.Parser;
 import mx.com.neogen.code.beans.Operator;
 import mx.com.neogen.code.enums.OperatorTypeEnum;
-import mx.com.neogen.code.impls.JavaArithmeticEvaluator;
+import mx.com.neogen.code.impls.JavaArithmeticEvaluatorTranslator;
 import mx.com.neogen.code.impls.TextTreeTranslator;
 
 
@@ -53,11 +53,11 @@ public class MainAritmethic {
         };
         
         try (
-            EvaluatorTranslator evtran = new JavaArithmeticEvaluator( "D:\\tmp\\MainArithmetic.java");
+            EvaluatorTranslator evtran = new JavaArithmeticEvaluatorTranslator( "D:\\tmp\\MainArithmetic.java");
         ) {
             evtran.init();
             
-            var parser = new ExpressionParser( items);      
+            var parser = new ExpressionParser( items, false);      
             var evaluator = new ArithmeticEvaluator( evtran);
             
             int test = 0;

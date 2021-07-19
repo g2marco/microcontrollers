@@ -9,7 +9,8 @@ import mx.com.neogen.code.impls.LogicalEvaluator;
 import mx.com.neogen.code.Parser;
 import mx.com.neogen.code.beans.Operator;
 import mx.com.neogen.code.enums.OperatorTypeEnum;
-import mx.com.neogen.code.impls.JavaLogicalEvaluator;
+import mx.com.neogen.code.impls.CLikeTranslator;
+import mx.com.neogen.code.impls.JavaLogicalEvaluatorTranslator;
 import mx.com.neogen.code.impls.TextTreeTranslator;
 
 
@@ -18,21 +19,21 @@ public class MainLogical {
     public static void main(String[] args) {
         var items = new ArrayList<Operator>();
         
-        items.add( new Operator( OperatorTypeEnum.UNARY, "not", 1) {
+        items.add( new Operator( OperatorTypeEnum.UNARY, "not", "!", 1) {
             @Override
             public Boolean execute( Object... values) {
                 return !((Boolean) values[0]);
             }
         });
         
-        items.add( new Operator( OperatorTypeEnum.BINARY, " or ", 3) {
+        items.add( new Operator( OperatorTypeEnum.BINARY, " or ", "||", 3) {
             @Override
             public Boolean execute( Object... values) {
                 return (Boolean) values[0] || (Boolean) values[1];
             }
         });
         
-        items.add( new Operator( OperatorTypeEnum.BINARY, " and ", 4) {
+        items.add( new Operator( OperatorTypeEnum.BINARY, " and ", "&&", 4) {
             @Override
             public Boolean execute( Object... values) {
                 return (Boolean) values[0] && (Boolean) values[1];
@@ -54,14 +55,14 @@ public class MainLogical {
             }
         });
         
-        items.add( new Operator( OperatorTypeEnum.BINARY, " not equals ", 8) {
+        items.add( new Operator( OperatorTypeEnum.BINARY, " not equals ", "!=",  8) {
             @Override
             public Boolean execute( Object... values) {
                 return !(values[0].equals( values[1]));
             }
         });
         
-        items.add( new Operator( OperatorTypeEnum.BINARY, " equals ", 8) {
+        items.add( new Operator( OperatorTypeEnum.BINARY, " equals ", "==", 8) {
             @Override
             public Boolean execute( Object... values) {
                 return values[0].equals( values[1]);
@@ -74,11 +75,12 @@ public class MainLogical {
         
         
         try (
-            EvaluatorTranslator evtran = new JavaLogicalEvaluator( "D:\\tmp\\Main.java");
+            EvaluatorTranslator evtran = new JavaLogicalEvaluatorTranslator( "D:\\tmp\\Main.java");
         ) {
             evtran.init();
             
-            var parser = new ExpressionParser( items.toArray( new Operator[] {}));
+            var debuParser = false;
+            var parser = new ExpressionParser( items.toArray( new Operator[] {}), debuParser);
             var evaluator = new LogicalEvaluator( evtran);
             
             int test = 0;
@@ -179,12 +181,14 @@ public class MainLogical {
     
     private static void testCase( int test, Parser parser, Evaluator evaluator, String expression, String nativeExpression, String... variables) throws IOException {
         var translator = new TextTreeTranslator();  
+        var nativeTranslator = new CLikeTranslator();
         
         info( "\ntree for " + test + ": [" + expression + "]");
         info( "native expression: " + nativeExpression);
         
         var root = parser.parse( expression);
-        info( root);
+        info( "toString( root)  : " + root);
+        info( "c-like translate : " + nativeTranslator.translate( root));
         info( translator.translate(root));
         evaluator.evaluate( test, nativeExpression, root, variables);
     }

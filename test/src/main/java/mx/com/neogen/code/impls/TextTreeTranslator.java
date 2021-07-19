@@ -1,11 +1,18 @@
 package mx.com.neogen.code.impls;
 
+import mx.com.neogen.code.Translator;
 import mx.com.neogen.code.beans.Node;
 import mx.com.neogen.code.beans.Operand;
 import mx.com.neogen.code.enums.OperandTypeEnum;
 
-public class TextTreeTranslator {
+public class TextTreeTranslator implements Translator {
 
+    public TextTreeTranslator() {
+        super();
+    }
+    
+    
+    @Override
     public String translate( Node root) {
         return translate( root, 0);
     }

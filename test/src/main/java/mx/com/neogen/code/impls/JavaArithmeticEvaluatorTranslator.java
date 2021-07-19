@@ -3,10 +3,10 @@ package mx.com.neogen.code.impls;
 import java.io.IOException;
 import mx.com.neogen.code.EvaluatorTranslator;
 
-public class JavaLogicalEvaluator extends EvaluatorTranslator {
+public class JavaArithmeticEvaluatorTranslator extends EvaluatorTranslator {
 
     
-    public JavaLogicalEvaluator( String path) throws IOException {
+    public JavaArithmeticEvaluatorTranslator( String path) throws IOException {
         super( path);
     }
     
@@ -15,16 +15,17 @@ public class JavaLogicalEvaluator extends EvaluatorTranslator {
     public void init() throws IOException {
         super.init();
         
-        writeLine( "public class Main {\n");
+        writeLine( "public class MainArithmetic {\n");
         writeLine( "\tpublic static void main(String[] args) {");
-        writeLine( "\t\tboolean alfa, beta, gamma, omega, epsilon, phi, delta, match;");
+        writeLine( "\t\tdouble alfa, beta, gamma, omega, epsilon, phi, delta;");
+        writeLine( "\t\tboolean match;");
         writeLine( "\t\tString msg;");
     }
 
     @Override
     public void beforeTest(int test, String expression) throws IOException {
-        writeLine( "\t\tSystem.out.println( \"\\ntest " + test + ", expression: " + expression +"\");");
-        writeLine( "\t\tmsg = \"\";");
+        writeLine( "\n\t\tSystem.out.println( \"\\ntest " + test + ", expression: " + expression +"\");");
+        writeLine( "\t\tmsg = \"\";\n");
     }
 
     @Override
@@ -33,12 +34,12 @@ public class JavaLogicalEvaluator extends EvaluatorTranslator {
             writeLine( "\t\t" + variables[i] + " = " + values[i] + ";");
         }
         writeLine("\t\tmatch = (" + expression + ") == " + result + ";");
-        writeLine("\t\tif ( !match) { msg += \"vector_" + test + "\\n\"; }");
+        writeLine("\t\tif ( !match) { msg += \"vector_" + test + "\\n\"; }\n");
     }
 
     @Override
     public void afterTest( int test, String expression) throws IOException {
-        writeLine( "\t\tSystem.out.println( \"test " + test + ": \" + (msg.length() == 0? \"OK\" : (\"expression: " + expression +", has errors:\\n\" + msg)));");
+        writeLine( "\t\tSystem.out.println( \"test " + test + ": \" + (msg.length() == 0? \"OK\" : (\"expression: " + expression +", has errors:\\n\" + msg)));\n");
     }
     
     @Override

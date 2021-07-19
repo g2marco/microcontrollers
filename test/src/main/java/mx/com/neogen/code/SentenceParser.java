@@ -9,9 +9,20 @@ import mx.com.neogen.code.beans.Signal;
 import mx.com.neogen.code.beans.SignalTarget;
 import mx.com.neogen.code.enums.SignalTypeEnum;
 import mx.com.neogen.code.enums.TargetTypeEnum;
+import mx.com.neogen.code.impls.AssignmentHelper;
 
 
 public class SentenceParser {
+    
+    public final AssignmentHelper helper;
+
+    
+    public SentenceParser( AssignmentHelper helper) {
+        super();
+        
+        this.helper = helper;
+    }
+    
     
     public BeanProgram parse( List<String> sentences) {
         var signals     = new ArrayList<Signal>();
@@ -43,7 +54,10 @@ public class SentenceParser {
         }
         ++i;
         
-        item.setValue( getExpression( i, tokens) );
+        var expression = getExpression( i, tokens);
+        var root       = helper.parseExpression( expression);
+        
+        item.setValue( helper.translate( root));
         
         return item;
     }

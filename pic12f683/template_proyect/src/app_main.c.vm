@@ -49,7 +49,7 @@ void loop( void) {
         #end
         
         #foreach( $assignment in $data.assignments)
-        ${assignment.signal} = ${assignment.value};
+        ${assignment.signal} = #foreach ($element in $assignment.elements)$element.value#end;
         #end
 
         tick = false;

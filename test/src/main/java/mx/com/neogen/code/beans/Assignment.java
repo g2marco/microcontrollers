@@ -1,9 +1,11 @@
 package mx.com.neogen.code.beans;
 
+import java.util.List;
+
 public class Assignment {
     
     private String signal;
-    private String value;
+    private List<AssignmentElement> elements;
     
     
     public Assignment() {
@@ -19,17 +21,18 @@ public class Assignment {
         this.signal = signal;
     }
 
-    public String getValue() {
-        return value;
+    public List<AssignmentElement> getElements() {
+        return elements;
     }
 
-    public void setValue( String value) {
-        this.value = value;
+    public void setElements(List<AssignmentElement> elements) {
+        this.elements = elements;
     }
-
+    
+    
     @Override
     public String toString() {
-        return "{signal: " + signal + ", value: " + value + "}";
+        return "{signal: " + signal + ", elements: " + elements + "}";
     }
 
 }

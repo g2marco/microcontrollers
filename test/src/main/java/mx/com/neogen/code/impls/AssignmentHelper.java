@@ -10,20 +10,9 @@ import mx.com.neogen.code.enums.OperatorTypeEnum;
 
 
 public class AssignmentHelper {
-    private final static Operator[] operators;
     
     static {
-        var items = new ArrayList<Operator>();
-        
-        items.add( new Operator( OperatorTypeEnum.UNARY ,          "not",  "!", 1));
-        items.add( new Operator( OperatorTypeEnum.BINARY,         " or ", "||", 3));
-        items.add( new Operator( OperatorTypeEnum.BINARY,        " and ", "&&", 4));
-        items.add( new Operator( OperatorTypeEnum.BINARY,           "==",       8));
-        items.add( new Operator( OperatorTypeEnum.BINARY,     " equals ", "==", 8));
-        items.add( new Operator( OperatorTypeEnum.BINARY,           "!=",       8));
-        items.add( new Operator( OperatorTypeEnum.BINARY, " not equals ", "!=", 8));
-        
-        operators = items.toArray( new Operator[] {}); 
+        System.out.println("AssignmentHelper static init");
     }
     
     private final Parser parser;
@@ -33,7 +22,7 @@ public class AssignmentHelper {
     public AssignmentHelper() {
         super();
         
-        this.parser     = new ExpressionParser( operators, false);
+        this.parser     = new ExpressionParser( initOperators(), true);
         this.translator = new CLikeTranslator();
     }
     
@@ -45,4 +34,21 @@ public class AssignmentHelper {
     public String translate( Node root) {
         return translator.translate( root);
     }
+    
+    
+    private final Operator[] initOperators() {
+        var items = new ArrayList<Operator>();
+        
+        items.add( new Operator( OperatorTypeEnum.UNARY ,          "not",  "!", 1));
+        items.add( new Operator( OperatorTypeEnum.UNARY ,            "!",  "!", 1));
+        items.add( new Operator( OperatorTypeEnum.BINARY,         " or ", "||", 3));
+        items.add( new Operator( OperatorTypeEnum.BINARY,        " and ", "&&", 4));
+        items.add( new Operator( OperatorTypeEnum.BINARY,           "==",       8));
+        items.add( new Operator( OperatorTypeEnum.BINARY,     " equals ", "==", 8));
+        items.add( new Operator( OperatorTypeEnum.BINARY,           "!=",       8));
+        items.add( new Operator( OperatorTypeEnum.BINARY, " not equals ", "!=", 8));
+        
+        return items.toArray( new Operator[] {});
+    }
+    
 }

@@ -23,7 +23,10 @@ public class CLikeTranslator implements Translator {
         strb.append( "(");
         
         if( operands.length == 1) {
-            strb.append( translate( operator)).append( translate( operands[0]));
+            if ( operator != null) {
+                strb.append( translate( operator));
+            }
+            strb.append( translate( operands[0]));
         
         } else {
             strb.append( translate( operands[0])).

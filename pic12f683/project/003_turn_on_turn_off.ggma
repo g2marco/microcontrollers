@@ -1,5 +1,5 @@
 /**
- *  The easiest description
+ *  Output as a function of two inputs
  */
 
 // input and output definition
@@ -12,9 +12,5 @@ outputA is output on pin GP5;
 // ouput function
 outputA is not switchA and switchB;
 
-/**
- * A more verbose description could be:
- * outputA is ON when switchA is closed, OFF otherwise;
- */
 
  

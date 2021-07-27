@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import mx.com.neogen.code.beans.Assignment;
+import mx.com.neogen.code.beans.AssignmentElement;
 import mx.com.neogen.code.beans.BeanProgram;
+import mx.com.neogen.code.beans.Node;
 import mx.com.neogen.code.beans.Signal;
 import mx.com.neogen.code.beans.SignalTarget;
 import mx.com.neogen.code.enums.SignalTypeEnum;
@@ -54,10 +56,23 @@ public class SentenceParser {
         }
         ++i;
         
-        var expression = getExpression( i, tokens);
-        var root       = helper.parseExpression( expression);
+        var elements = getRawAssignmentElements( i, tokens);
+        Node node;
         
-        item.setValue( helper.translate( root));
+        for ( AssignmentElement element : elements) {
+            
+            System.out.println( "element: " + element);
+            
+            node = helper.parseExpression( element.getValue());
+            element.setValue( helper.translate( node));
+            
+            if ( element.getCondition() != null) {
+                node = helper.parseExpression( element.getCondition());
+                element.setCondition( helper.translate( node));
+            }
+        }
+        
+        item.setElements( elements);
         
         return item;
     }
@@ -78,8 +93,7 @@ public class SentenceParser {
         item.setType( SignalTypeEnum.valueOf( tokens[i]));
         ++i;
         
-        if ( !"on".equals( tokens[i])) {
-               
+        if ( !"on".equals( tokens[i])) { 
             ++i;
         }
         
@@ -111,6 +125,46 @@ public class SentenceParser {
             }
         }
         return tokens.toArray( new String[] {});
+    }
+    
+     protected List<AssignmentElement> getRawAssignmentElements( int startIdx, String[] tokens) {
+        StringBuilder strb;
+        String token;
+        AssignmentElement element;
+        
+        var idx = startIdx;
+        var elements = new ArrayList<AssignmentElement>();
+        
+        while( idx < tokens.length) {
+            strb = new StringBuilder();
+            while( idx < tokens.length) {
+                token = tokens[ idx];
+                if ( "when".equals( token)) {
+                    break;
+                }
+                strb.append( token);                   
+                idx++;
+            }
+        
+            element = new AssignmentElement();
+            element.setValue( strb.toString());
+        
+            strb = new StringBuilder();
+            while( idx < tokens.length) {
+                token = tokens[ idx];
+                if ( ",".equals( token)) {
+                    break;
+                }
+                strb.append( token);                   
+                idx++;
+            }
+        
+            element.setCondition( strb.length() == 0? null : strb.toString());
+        
+            elements.add( element);
+        }
+        
+        return elements;
     }
     
     protected String getExpression( int startIdx, String[] tokens) {

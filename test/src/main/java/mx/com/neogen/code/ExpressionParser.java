@@ -62,34 +62,47 @@ public class ExpressionParser implements Parser {
     private Node createNode( Operator operator, String expression, int uptoIdx) {
         var node = new Node();
         
-        node.setOperator( operator);
-        
-        var tokens = findOperands( expression, operator, uptoIdx);
-        
-        var operands = new ArrayList<Operand>();
         Operand operand;
         OperandTypeEnum type;
         
-        for( String token : tokens) {
+        if ( operator == null) {
             operand = new Operand();
+            type = findOperandType( expression);
             
-            type = findOperandType( token);
             operand.setType( type);
-            switch( type) {
-                case EXPRESSION:
-                    operand.setValue( parseExpression( token));
-                    break;
-                    
-                case LITERAL:
-                case VARIABLE: 
-                    operand.setValue( token);
-                    break;
-            }
-                       
-            operands.add( operand);
-        }
+            operand.setValue( expression);
+            
+            node.setOperands( new Operand[] { operand});
+            
+        } else {
+            node.setOperator( operator);
+            
+            var tokens = findOperands( expression, operator, uptoIdx);
         
-        node.setOperands( operands.toArray( new Operand[] {}));
+            var operands = new ArrayList<Operand>();
+            
+            
+            for( String token : tokens) {
+                operand = new Operand();
+                
+                type = findOperandType( token);
+                operand.setType( type);
+                switch( type) {
+                    case EXPRESSION:
+                        operand.setValue( parseExpression( token));
+                        break;
+                        
+                    case LITERAL:
+                    case VARIABLE: 
+                        operand.setValue( token);
+                        break;
+                }
+                       
+                operands.add( operand);
+            }
+        
+            node.setOperands( operands.toArray( new Operand[] {}));
+        }
         
         return node;
     }

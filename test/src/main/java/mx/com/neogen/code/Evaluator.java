@@ -29,18 +29,24 @@ public abstract class Evaluator {
     protected Object evaluate( Node node, String[] variables, Object[] vector) {
         Object valorA, valorB;
         
-        switch( node.getOperator().getType()) {
-            case UNARY:
-                valorA = getOperand( node.getOperands()[0], variables, vector);
-                return node.getOperator().execute( valorA);
+        if ( node.getOperator() == null) {
+            valorA = getOperand( node.getOperands()[0], variables, vector);
+            return valorA;
             
-            case BINARY:
-                valorA = getOperand( node.getOperands()[0], variables, vector);
-                valorB = getOperand( node.getOperands()[1], variables, vector);
-                return node.getOperator().execute( valorA, valorB);
+        } else {
+            switch( node.getOperator().getType()) {
+                case UNARY:
+                    valorA = getOperand( node.getOperands()[0], variables, vector);
+                    return node.getOperator().execute( valorA);
+            
+                case BINARY:
+                    valorA = getOperand( node.getOperands()[0], variables, vector);
+                    valorB = getOperand( node.getOperands()[1], variables, vector);
+                    return node.getOperator().execute( valorA, valorB);
                 
-            default:
-                throw new RuntimeException( "Tipo de Operador no considerado: " + node.getOperator().getType());
+                default:
+                    throw new RuntimeException( "Tipo de Operador no considerado: " + node.getOperator().getType());
+            }
         }
     }
     

@@ -26,6 +26,13 @@ public class MainLogical {
             }
         });
         
+        items.add( new Operator( OperatorTypeEnum.UNARY, "!", "!", 1) {
+            @Override
+            public Boolean execute( Object... values) {
+                return !((Boolean) values[0]);
+            }
+        });
+        
         items.add( new Operator( OperatorTypeEnum.BINARY, " or ", "||", 3) {
             @Override
             public Boolean execute( Object... values) {
@@ -70,10 +77,6 @@ public class MainLogical {
         });
                 
         
-        
-        
-        
-        
         try (
             EvaluatorTranslator evtran = new JavaLogicalEvaluatorTranslator( "D:\\tmp\\Main.java");
         ) {
@@ -85,6 +88,12 @@ public class MainLogical {
             
             int test = 0;
         
+            testCase( ++test, parser, evaluator, "alfa", "alfa", "alfa");
+            
+            testCase( ++test, parser, evaluator, "not alfa", "!alfa", "alfa");
+            
+            testCase( ++test, parser, evaluator,    "!alfa", "!alfa", "alfa");
+            
             testCase( ++test, parser, evaluator, "alfa and beta", "alfa &&  beta", "alfa", "beta");
             
             testCase( ++test, parser, evaluator, "alfa == beta",  "alfa == beta", "alfa", "beta");

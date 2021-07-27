@@ -34,7 +34,7 @@ public class Node {
     @Override
     public String toString() {
         if( operands.length == 1) {
-            return "(" + operator + " " + operands[0] + ")";
+            return "(" + (operator == null? "" : operator) + " " + operands[0] + ")";
         } else {
             return "(" + operands[0] + operator + operands[1] + ")";
         }

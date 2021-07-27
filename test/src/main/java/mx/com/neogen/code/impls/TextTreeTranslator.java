@@ -13,7 +13,7 @@ public class TextTreeTranslator implements Translator {
     
     
     @Override
-    public String translate( Node root) {
+    public String translate( String signal, Node root) {
         return translate( root, 0);
     }
     

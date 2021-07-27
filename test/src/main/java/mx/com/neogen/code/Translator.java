@@ -4,6 +4,6 @@ import mx.com.neogen.code.beans.Node;
 
 public interface Translator {
 
-    String translate( Node root);
+    String translate( String signal, Node root);
     
 }

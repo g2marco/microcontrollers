@@ -197,8 +197,8 @@ public class MainLogical {
         
         var root = parser.parse( expression);
         info( "toString( root)  : " + root);
-        info( "c-like translate : " + nativeTranslator.translate( root));
-        info( translator.translate(root));
+        info( "c-like translate : " + nativeTranslator.translate( null, root));
+        info( translator.translate( null, root));
         evaluator.evaluate( test, nativeExpression, root, variables);
     }
     

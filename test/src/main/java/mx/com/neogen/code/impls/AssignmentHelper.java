@@ -31,8 +31,8 @@ public class AssignmentHelper {
         return parser.parse( expression);      
     }
     
-    public String translate( Node root) {
-        return translator.translate( root);
+    public String translate( String signal, Node root) {
+        return translator.translate( signal, root);
     }
     
     

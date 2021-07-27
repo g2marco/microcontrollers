@@ -64,11 +64,11 @@ public class SentenceParser {
             System.out.println( "element: " + element);
             
             node = helper.parseExpression( element.getValue());
-            element.setValue( helper.translate( node));
+            element.setValue( helper.translate( item.getSignal(), node));
             
             if ( element.getCondition() != null) {
                 node = helper.parseExpression( element.getCondition());
-                element.setCondition( helper.translate( node));
+                element.setCondition( helper.translate( item.getSignal(), node));
             }
         }
         
@@ -120,7 +120,6 @@ public class SentenceParser {
         
         for( String item : items) {
             if ( !item.isBlank()) {
-                
                 tokens.add( item);
             }
         }
@@ -140,8 +139,10 @@ public class SentenceParser {
             while( idx < tokens.length) {
                 token = tokens[ idx];
                 if ( "when".equals( token)) {
+                    idx++;
                     break;
                 }
+                if( strb.length() > 0) { strb.append( ' '); }
                 strb.append( token);                   
                 idx++;
             }
@@ -155,6 +156,7 @@ public class SentenceParser {
                 if ( ",".equals( token)) {
                     break;
                 }
+                if( strb.length() > 0) { strb.append( ' '); }
                 strb.append( token);                   
                 idx++;
             }

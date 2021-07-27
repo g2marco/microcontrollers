@@ -175,7 +175,7 @@ public class MainAritmethic {
         
         var root = parser.parse( expression);
         info( root);
-        info( translator.translate(root));
+        info( translator.translate( null, root));
         evaluator.evaluate( test, nativeExpression, root, variables);
     }
     

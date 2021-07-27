@@ -1,16 +1,13 @@
 /**
- *  Output as a function of two inputs
+ *  One input activates the input when pressed, and turns it off when pressed again
  */
 
 // input and output definition
 
 switchA is input   switch on pin GP0;
-switchB is input   switch on pin GP1;
 
 outputA is output on pin GP5;
 
 // ouput function
-outputA is not switchA and switchB;
+outputA is toggled when switchA'rise;
 
-
- 

@@ -1,15 +1,15 @@
-package mx.com.neogen;
+package mx.com.neogen.test;
 
 import java.io.IOException;
-import mx.com.neogen.code.impls.ArithmeticEvaluator;
-import mx.com.neogen.code.Evaluator;
-import mx.com.neogen.code.EvaluatorTranslator;
+import mx.com.neogen.test.code.impls.ArithmeticEvaluator;
+import mx.com.neogen.test.code.Evaluator;
+import mx.com.neogen.test.code.EvaluatorTranslator;
 import mx.com.neogen.code.ExpressionParser;
 import mx.com.neogen.code.Parser;
 import mx.com.neogen.code.beans.Operator;
 import mx.com.neogen.code.enums.OperatorTypeEnum;
-import mx.com.neogen.code.impls.JavaArithmeticEvaluatorTranslator;
-import mx.com.neogen.code.impls.TextTreeTranslator;
+import mx.com.neogen.test.code.impls.JavaArithmeticEvaluatorTranslator;
+import mx.com.neogen.test.code.impls.TextTreeTranslator;
 
 
 public class MainAritmethic {

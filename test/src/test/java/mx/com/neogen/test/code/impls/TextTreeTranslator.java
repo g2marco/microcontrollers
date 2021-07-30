@@ -1,4 +1,4 @@
-package mx.com.neogen.code.impls;
+package mx.com.neogen.test.code.impls;
 
 import mx.com.neogen.code.Translator;
 import mx.com.neogen.code.beans.Node;

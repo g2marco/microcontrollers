@@ -1,4 +1,4 @@
-package mx.com.neogen.code;
+package mx.com.neogen.test.code;
 
 import java.io.Closeable;
 import java.io.FileWriter;

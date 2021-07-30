@@ -1,7 +1,7 @@
-package mx.com.neogen.code.impls;
+package mx.com.neogen.test.code.impls;
 
 import java.io.IOException;
-import mx.com.neogen.code.EvaluatorTranslator;
+import mx.com.neogen.test.code.EvaluatorTranslator;
 
 public class JavaLogicalEvaluatorTranslator extends EvaluatorTranslator {
 

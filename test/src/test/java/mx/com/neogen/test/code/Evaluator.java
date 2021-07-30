@@ -1,4 +1,4 @@
-package mx.com.neogen.code;
+package mx.com.neogen.test.code;
 
 import java.io.IOException;
 import mx.com.neogen.code.beans.Node;

@@ -1,17 +1,17 @@
-package mx.com.neogen;
+package mx.com.neogen.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import mx.com.neogen.code.Evaluator;
-import mx.com.neogen.code.EvaluatorTranslator;
+import mx.com.neogen.test.code.Evaluator;
+import mx.com.neogen.test.code.EvaluatorTranslator;
 import mx.com.neogen.code.ExpressionParser;
-import mx.com.neogen.code.impls.LogicalEvaluator;
+import mx.com.neogen.test.code.impls.LogicalEvaluator;
 import mx.com.neogen.code.Parser;
 import mx.com.neogen.code.beans.Operator;
 import mx.com.neogen.code.enums.OperatorTypeEnum;
 import mx.com.neogen.code.impls.CLikeTranslator;
-import mx.com.neogen.code.impls.JavaLogicalEvaluatorTranslator;
-import mx.com.neogen.code.impls.TextTreeTranslator;
+import mx.com.neogen.test.code.impls.JavaLogicalEvaluatorTranslator;
+import mx.com.neogen.test.code.impls.TextTreeTranslator;
 
 
 public class MainLogical {

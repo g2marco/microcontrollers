@@ -1,7 +1,7 @@
-package mx.com.neogen.code.impls;
+package mx.com.neogen.test.code.impls;
 
-import mx.com.neogen.code.Evaluator;
-import mx.com.neogen.code.EvaluatorTranslator;
+import mx.com.neogen.test.code.Evaluator;
+import mx.com.neogen.test.code.EvaluatorTranslator;
 
 
 

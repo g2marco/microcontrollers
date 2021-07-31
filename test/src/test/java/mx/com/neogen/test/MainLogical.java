@@ -6,7 +6,7 @@ import mx.com.neogen.test.code.Evaluator;
 import mx.com.neogen.test.code.EvaluatorTranslator;
 import mx.com.neogen.code.ExpressionParser;
 import mx.com.neogen.test.code.impls.LogicalEvaluator;
-import mx.com.neogen.code.Parser;
+import mx.com.neogen.code.interfaces.Parser;
 import mx.com.neogen.code.beans.Operator;
 import mx.com.neogen.code.enums.OperatorTypeEnum;
 import mx.com.neogen.code.impls.CLikeTranslator;

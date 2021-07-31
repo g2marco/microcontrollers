@@ -2,8 +2,8 @@ package mx.com.neogen.code.impls;
 
 import java.util.ArrayList;
 import mx.com.neogen.code.ExpressionParser;
-import mx.com.neogen.code.Parser;
-import mx.com.neogen.code.Translator;
+import mx.com.neogen.code.interfaces.Parser;
+import mx.com.neogen.code.interfaces.Translator;
 import mx.com.neogen.code.beans.Node;
 import mx.com.neogen.code.beans.Operator;
 import mx.com.neogen.code.enums.OperatorTypeEnum;

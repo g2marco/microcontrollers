@@ -1,5 +1,6 @@
 package mx.com.neogen.code;
 
+import mx.com.neogen.code.interfaces.Parser;
 import mx.com.neogen.code.enums.OperatorTypeEnum;
 import mx.com.neogen.code.beans.Operator;
 import mx.com.neogen.code.enums.OperandTypeEnum;

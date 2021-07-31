@@ -1,6 +1,6 @@
 package mx.com.neogen.code.impls;
 
-import mx.com.neogen.code.Translator;
+import mx.com.neogen.code.interfaces.Translator;
 import mx.com.neogen.code.beans.Node;
 import mx.com.neogen.code.beans.Operand;
 import mx.com.neogen.code.beans.Operator;

@@ -17,9 +17,27 @@ import mx.com.neogen.code.interfaces.Translator;
 
 public class SentenceParser {
 
+    private class Part {
+        int idx;
+        String endToken;
+        String text;
+        
+        Part( int idx, String endToken, String text) {
+            super();
+            
+            this.idx = idx;
+            this.endToken = endToken;
+            this.text = text;
+        }
+    }
+    
+    private final String[] END_TOKENS = { "when", "for", "while", "otherwise", ","};
+    
+    
     public final Parser     parser;
     public final Translator translator;
 
+    
     
     public SentenceParser( Parser parser, Translator translator) {
         super();
@@ -66,12 +84,17 @@ public class SentenceParser {
             
             System.out.println( "element: " + element);
             
-            node = parser.parse( element.getValue());
-            element.setValue( translator.translate( item.getSignal(), node));
+            node = parser.parse( element.getSetExpression());
+            element.setSetExpression( translator.translate( item.getSignal(), node));
             
-            if ( element.getCondition() != null) {
-                node = parser.parse( element.getCondition());
-                element.setCondition( translator.translate( item.getSignal(), node));
+            if( element.hasResetClausule()) {
+                node = parser.parse( element.getResetCondition());
+                element.setResetCondition( translator.translate( item.getSignal(), node));
+            }
+            
+            if ( element.getSetCondition() != null) {
+                node = parser.parse( element.getSetCondition());
+                element.setSetCondition( translator.translate( item.getSignal(), node));
             }
         }
         
@@ -136,36 +159,45 @@ public class SentenceParser {
         
         var idx = startIdx;
         var elements = new ArrayList<AssignmentElement>();
+        Part part;
         
         while( idx < tokens.length) {
-            strb = new StringBuilder();
-            while( idx < tokens.length) {
-                token = tokens[ idx];
-                if ( "when".equals( token)) {
-                    idx++;
-                    break;
-                }
-                if( strb.length() > 0) { strb.append( ' '); }
-                strb.append( token);                   
-                idx++;
-            }
-        
             element = new AssignmentElement();
-            element.setValue( strb.toString());
-        
-            strb = new StringBuilder();
-            while( idx < tokens.length) {
-                token = tokens[ idx];
-                if ( ",".equals( token)) {
-                    break;
-                }
-                if( strb.length() > 0) { strb.append( ' '); }
-                strb.append( token);                   
-                idx++;
+            
+            part = getNextPart( tokens, idx, END_TOKENS);
+                                 
+            element.setSetExpression( part.text);
+            idx = part.idx;
+            
+            if ( part.endToken == null) {   // there is no clauses
+                elements.add( element);
+                break;
             }
-        
-            element.setCondition( strb.length() == 0? null : strb.toString());
-        
+            
+            switch ( part.endToken) {
+                case "for"  :
+                case "while":
+                    element.setResetClausule( part.endToken);
+                    break;
+            }
+            
+            part = getNextPart( tokens, idx, END_TOKENS);
+            idx = part.idx;
+            
+            // if a reset clausule is present, is followed by the reset condition
+            if ( element.getResetClausule() != null) {
+                element.setResetCondition( part.text);    
+            } else {
+                element.setSetCondition( part.text.isEmpty()? null : part.text);
+            }
+            
+            // if reset clausule exists, the last part is the set condition (when)
+            if ( element.getResetClausule() != null) {
+                part = getNextPart( tokens, idx, END_TOKENS);
+                idx = part.idx;
+                element.setSetCondition( part.text.isEmpty()? null : part.text);
+            }
+            
             elements.add( element);
         }
         
@@ -196,4 +228,37 @@ public class SentenceParser {
     protected String getFirstToken( String sentence) {
         return sentence.split( "\\s")[0];
     }
+    
+    private Part getNextPart( String[] tokens, int startIdx, String[] endTokens) {
+        var strb = new StringBuilder();
+        var idx = startIdx;
+        String token;
+        String endToken = null;
+        
+        while( idx < tokens.length) {
+            token = tokens[ idx];
+            if ( contains( endTokens, token)) {
+                endToken = token;
+                idx++;
+                break;
+            }
+            
+            if( strb.length() > 0) { strb.append( ' '); }
+            strb.append( token);                   
+            idx++;
+        }
+        
+        return new Part( idx, endToken, strb.toString());
+    }
+    
+    private boolean contains ( String[] items, String value) {
+        for( String item : items) {
+            if( item.equals( value)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
 }

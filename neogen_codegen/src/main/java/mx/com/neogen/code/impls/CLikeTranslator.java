@@ -49,22 +49,25 @@ public class CLikeTranslator implements Translator {
 
         if( operand.getType().equals( OperandTypeEnum.EXPRESSION)) {
             strb.append( translate( signal, (Node) operand.getValue()));
-        } else {
-                       
+    
+        } else {               
             String value = (String) operand.getValue();
-            
+            String name;
             if ( value.endsWith( "'rise")) {
-                var name = value.substring( 0, value.indexOf( "'"));
+                name = value.substring( 0, value.indexOf( "'"));
                 value = "hasChanged_" + name + " && " + name + " == 1";
                 
             } else if ( value.endsWith( "'falll")) {
-                var name = value.substring( 0, value.indexOf( "'"));
+                name = value.substring( 0, value.indexOf( "'"));
                 value = "hasChanged_" + name + " && " + name + " == 0";
                 
             } else if ( value.endsWith( "'change")) {
-                var name = value.substring( 0, value.indexOf( "'"));
+                name = value.substring( 0, value.indexOf( "'"));
                 value = "hasChanged_" + name;
             
+            } else if( value.endsWith( "'ms")) {
+                name = value.substring( 0, value.indexOf( "'"));
+                value = name;
             }
                         
             switch( value) {

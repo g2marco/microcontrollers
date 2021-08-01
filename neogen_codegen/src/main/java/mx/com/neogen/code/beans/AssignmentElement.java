@@ -3,42 +3,60 @@ package mx.com.neogen.code.beans;
 
 public class AssignmentElement {
     
-    private String value;
-    private String condition;
+    private String setExpression;
+    private String resetClausule;
+    private String resetCondition;
+    private String setCondition;
 
     
     public AssignmentElement() {
         super();
     }
+    
 
-    public AssignmentElement( String value, String condition) {
-        super();
-        
-        this.value = value;
-        this.condition = condition;
+    public String getSetExpression() {
+        return setExpression;
     }
-    
-    
-    public String getValue() {
-        return value;
+
+    public void setSetExpression(String setExpression) {
+        this.setExpression = setExpression;
     }
-    
-    public void setValue( String value) {
-        this.value = value;
+
+    public String getResetClausule() {
+        return resetClausule;
     }
-    
-    public String getCondition() {
-        return condition;
+
+    public void setResetClausule(String resetClausule) {
+        this.resetClausule = resetClausule;
     }
-    
-    public void setCondition( String condition) {
-        this.condition = condition;
+
+    public String getResetCondition() {
+        return resetCondition;
+    }
+
+    public void setResetCondition(String resetCondition) {
+        this.resetCondition = resetCondition;
+    }
+
+    public String getSetCondition() {
+        return setCondition;
+    }
+
+    public void setSetCondition(String setCondition) {
+        this.setCondition = setCondition;
+    }
+
+    public boolean hasResetClausule() {
+        return resetClausule != null;
     }
     
     
     @Override
     public String toString() {
-        return value + (condition == null? "" : " when " + condition);
+        return "setExpression: " + setExpression + 
+            (resetClausule == null? "" : ", resetClausule: " + resetClausule + ", resetCondition: " + resetCondition) +
+            (setCondition  == null? "" : ", setCondition: " + setCondition)
+        ;
     }
 
 }

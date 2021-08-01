@@ -17,7 +17,11 @@ public class Main {
     
     private final static String TEMPLATE_PROYECT_PATH = BASE_PATH_DIR + "template_proyect";
     private final static String TARGET_PROYECT_PATH   = BASE_PATH_DIR + "project\\code";
-    private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\003_turn_on_turn_off.ggma";
+    
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\001_simple_assignment.ggma";
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\002_two_inputs.ggma";
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\003_turn_on_turn_off.ggma";
+    private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\004_turn_on_turn_off_Xms.ggma";
     
     private static Parser createExpressionParser() {
         var operators = new Operator[] {

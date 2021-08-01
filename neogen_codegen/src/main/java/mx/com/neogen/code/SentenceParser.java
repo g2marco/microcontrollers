@@ -11,18 +11,21 @@ import mx.com.neogen.code.beans.Signal;
 import mx.com.neogen.code.beans.SignalTarget;
 import mx.com.neogen.code.enums.SignalTypeEnum;
 import mx.com.neogen.code.enums.TargetTypeEnum;
-import mx.com.neogen.code.impls.AssignmentHelper;
+import mx.com.neogen.code.interfaces.Parser;
+import mx.com.neogen.code.interfaces.Translator;
 
 
 public class SentenceParser {
-    
-    public final AssignmentHelper helper;
+
+    public final Parser     parser;
+    public final Translator translator;
 
     
-    public SentenceParser( AssignmentHelper helper) {
+    public SentenceParser( Parser parser, Translator translator) {
         super();
         
-        this.helper = helper;
+        this.parser     = parser;
+        this.translator = translator;
     }
     
     
@@ -63,12 +66,12 @@ public class SentenceParser {
             
             System.out.println( "element: " + element);
             
-            node = helper.parseExpression( element.getValue());
-            element.setValue( helper.translate( item.getSignal(), node));
+            node = parser.parse( element.getValue());
+            element.setValue( translator.translate( item.getSignal(), node));
             
             if ( element.getCondition() != null) {
-                node = helper.parseExpression( element.getCondition());
-                element.setCondition( helper.translate( item.getSignal(), node));
+                node = parser.parse( element.getCondition());
+                element.setCondition( translator.translate( item.getSignal(), node));
             }
         }
         

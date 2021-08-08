@@ -1,0 +1,120 @@
+\#include <xc.h>
+\#include <stdbool.h>
+
+\#include "libs\device_pinout.h"
+
+/**
+ *  Every Timer2 interruption sets tick = true
+ */  
+
+bool tick;
+
+void __interrupt() general_isr( void) {
+	if (TMR2IE && TMR2IF) {
+        TMR2IF = 0;
+		tick = true;
+    }
+}
+
+/**
+ *  Inputs debouncing routines
+ */ 
+#foreach( $signal in $data.signals)
+#if( $signal.type == 'input')
+
+bool isDebouncing_${signal.target.index} = false;
+bool hasChanged_${signal.name} = false;
+unsigned char ticks_${signal.target.index} = 0;
+__bit ${signal.name} = 0; 
+
+void debounce_input_${signal.target.index}() {
+    hasChanged_${signal.name} = false;
+
+    if( isDebouncing_${signal.target.index}) {              //  input GP${signal.target.index} is debouncing
+        if( --ticks_${signal.target.index} == 0) {          //  the number of ticks has passed
+            hasChanged_${signal.name} = (${signal.name} != raw_${signal.name});
+            // sets change flag before assign new value
+            ${signal.name} = raw_${signal.name};            //  ends debouncing
+            isDebouncing_${signal.target.index} = false;
+        }
+    
+    } else {
+        if ( raw_${signal.name} != ${signal.name}) {
+            ticks_${signal.target.index} = 100;
+            isDebouncing_${signal.target.index} = true;
+        }
+    }
+}
+#end
+#end
+
+/**
+ *  Output control variables
+ */
+#foreach( $signal in $data.signals)
+#if( $signal.type == 'output')
+
+int ${signal.name}_state = -1;
+int ${signal.name}_counter = 0;
+
+#end
+#end
+
+
+/**
+ *  Main loop method
+ */
+
+void loop( void) {
+    if ( tick) {
+#foreach( $signal in $data.signals)
+    #if( $signal.type == 'input')
+        debounce_input_${signal.target.index}();
+    #end
+#end
+        
+    #foreach( $assignment in $data.assignments)
+        switch( ${assignment.signal}_state) {
+        #foreach( $element in $assignment.elements) 
+	
+    		case $foreach.index:                // state of element index
+    		#if ( $element.resetClausule == 'while')
+                if $element.resetCondition {
+    				${assignment.signal}_state = -1;
+    				${assignment.signal} = !${assignment.signal};
+    			}
+    		#end
+    		#if ( $element.resetClausule == 'for')
+                if( --${assignment.signal}_counter == 0) {
+    				${assignment.signal}_state = -1;
+    				${assignment.signal} = !${assignment.signal};
+    			}
+    		#end
+			
+    			break;	
+		#end
+		
+            default: 							// no state
+        #foreach( $element in $assignment.elements) 
+            #if (!$element.setCondition) 
+                ${assignment.signal} = ${element.setExpression};
+            #else
+                if $element.setCondition {             
+    				#if ( $element.resetClausule == 'while')
+   					${assignment.signal}_state = ${foreach.index};
+    				#end
+    				#if ( $element.resetClausule == 'for')
+    				${assignment.signal}_state = ${foreach.index};
+                    ${assignment.signal}_counter = $element.resetCondition;
+    				#end
+                    ${assignment.signal} = ${element.setExpression};
+                }
+            #end
+		#end
+        }
+    #end
+
+        tick = false;
+    }
+}
+

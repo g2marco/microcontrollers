@@ -57,7 +57,7 @@ public class CLikeTranslator implements Translator {
                 name = value.substring( 0, value.indexOf( "'"));
                 value = "hasChanged_" + name + " && " + name + " == 1";
                 
-            } else if ( value.endsWith( "'falll")) {
+            } else if ( value.endsWith( "'fall")) {
                 name = value.substring( 0, value.indexOf( "'"));
                 value = "hasChanged_" + name + " && " + name + " == 0";
                 
@@ -68,8 +68,15 @@ public class CLikeTranslator implements Translator {
             } else if( value.endsWith( "'ms")) {
                 name = value.substring( 0, value.indexOf( "'"));
                 value = name;
-            }
-                        
+            
+            } else if ( value.endsWith( "'close")) {
+                name = value.substring( 0, value.indexOf( "'"));
+                value = name + " == 0";
+            
+            } else if ( value.endsWith( "'open")) {
+                name = value.substring( 0, value.indexOf( "'"));
+                value = name + " == 1";
+            }           
             switch( value) {
                 case "toggled": value = "!" + signal; break;
                 case "ON":      value = "1"; break;

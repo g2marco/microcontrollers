@@ -1,10 +1,13 @@
 package mx.com.neogen.code.beans;
 
+import mx.com.neogen.code.enums.ReservedWordEnum;
+
 
 public class AssignmentElement {
     
     private String setExpression;
-    private String resetClausule;
+    private String everyExpression;
+    private ReservedWordEnum resetClausule;
     private String resetCondition;
     private String setCondition;
 
@@ -18,15 +21,23 @@ public class AssignmentElement {
         return setExpression;
     }
 
-    public void setSetExpression(String setExpression) {
+    public void setSetExpression( String setExpression) {
         this.setExpression = setExpression;
     }
 
-    public String getResetClausule() {
+    public String getEveryExpression() {
+        return everyExpression;
+    }
+
+    public void setEveryExpression( String everyExpression) {
+        this.everyExpression = everyExpression;
+    }
+    
+    public ReservedWordEnum getResetClausule() {
         return resetClausule;
     }
 
-    public void setResetClausule(String resetClausule) {
+    public void setResetClausule( ReservedWordEnum resetClausule) {
         this.resetClausule = resetClausule;
     }
 
@@ -34,7 +45,7 @@ public class AssignmentElement {
         return resetCondition;
     }
 
-    public void setResetCondition(String resetCondition) {
+    public void setResetCondition( String resetCondition) {
         this.resetCondition = resetCondition;
     }
 
@@ -42,20 +53,20 @@ public class AssignmentElement {
         return setCondition;
     }
 
-    public void setSetCondition(String setCondition) {
+    public void setSetCondition( String setCondition) {
         this.setCondition = setCondition;
     }
-
+    
     public boolean hasResetClausule() {
         return resetClausule != null;
     }
     
-    
     @Override
     public String toString() {
         return "setExpression: " + setExpression + 
-            (resetClausule == null? "" : ", resetClausule: " + resetClausule + ", resetCondition: " + resetCondition) +
-            (setCondition  == null? "" : ", setCondition: " + setCondition)
+            (resetClausule   == null? "" : ", resetClausule: " + resetClausule + ", resetCondition: " + resetCondition) +
+            (everyExpression == null? "" : ", every: " + everyExpression) +
+            (setCondition    == null? "" : ", setCondition: " + setCondition)
         ;
     }
 

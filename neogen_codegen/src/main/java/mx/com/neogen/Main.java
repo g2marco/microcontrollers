@@ -13,17 +13,54 @@ import mx.com.neogen.code.interfaces.Parser;
 import mx.com.neogen.code.interfaces.Translator;
 
 public class Main {
-    private final static String BASE_PATH_DIR = "D:\\home\\ework\\microcontrollers\\pic12f683\\";
+    private final static String BASE_PATH_DIR = "D:\\home\\ework\\microcontrollers\\pic12f683\\04_neogen_codegen\\";
     
-    private final static String TEMPLATE_PROYECT_PATH = BASE_PATH_DIR + "template_proyect";
-    private final static String TARGET_PROYECT_PATH   = BASE_PATH_DIR + "project\\code";
+    private final static String TEMPLATE_PROYECT_PATH = BASE_PATH_DIR + "template";
+    private final static String TARGET_PROYECT_PATH   = BASE_PATH_DIR + "target";
     
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\001_simple_assignment.ggma";
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\002_two_inputs.ggma";
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\003_turn_on_turn_off.ggma";
-    private final static String PROGRAM_PATH          = BASE_PATH_DIR + "project\\004_turn_on_turn_off_Xms.ggma";
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\001_simple_assignment.ggma";
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\002_two_inputs.ggma";
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\003_turn_on_turn_off.ggma";
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\004_turn_on_turn_off_Xms.ggma";
+    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\005_turn_on_while.ggma";
+    private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\006_toggle_every.ggma";
     
-    private static Parser createExpressionParser() {
+    
+    private final Parser         expressionParser;
+    private final Translator expressionTranslator;
+    
+    
+    public Main() {
+        super();
+        
+        this.expressionParser     = createExpressionParser();
+        this.expressionTranslator = createExpressionTranslator();
+    }
+    
+   
+    public static void main(String[] args) throws IOException {
+        var main = new Main();
+        
+        main.generateProject( PROGRAM_PATH, TEMPLATE_PROYECT_PATH, TARGET_PROYECT_PATH);
+    }
+    
+    public void generateProject( String programPath, String templatePath, String targetPath) throws IOException {
+         // obtain instrucion lines
+        var preprocessor = new Preprocessor();
+        var sentences    = preprocessor.readSentences( programPath);
+
+        // parses each instruction
+        var sentenceParser = new SentenceParser( expressionParser, expressionTranslator);
+        var programa  = sentenceParser.parse( sentences);
+        
+        System.out.println( programa);
+        
+        // generates low-level code
+        var generator = new ProyectGenerator( templatePath);
+        generator.createProyect( targetPath, programa);
+    }
+    
+    private Parser createExpressionParser() {
         var operators = new Operator[] {
             new Operator( OperatorTypeEnum.UNARY ,          "not",  "!", 1),
             new Operator( OperatorTypeEnum.UNARY ,            "!",  "!", 1),
@@ -38,26 +75,8 @@ public class Main {
         return new ExpressionParser( operators, false);
     }
     
-    private static Translator createExpressionTranslator() {
+    private Translator createExpressionTranslator() {
         return new CLikeTranslator();
-    }
-    
-   
-    public static void main(String[] args) throws IOException {
-        
-        // obtain instrucion lines
-        var preprocessor = new Preprocessor();
-        var sentences    = preprocessor.readSentences( PROGRAM_PATH);
-
-        // parses each instruction
-        var sentenceParser = new SentenceParser( createExpressionParser(), createExpressionTranslator());
-        var programa  = sentenceParser.parse( sentences);
-        
-        System.out.println( programa);
-        
-        // generates low-level code
-        var generator = new ProyectGenerator( TEMPLATE_PROYECT_PATH);
-        generator.createProyect( TARGET_PROYECT_PATH, programa);
     }
     
 }

@@ -9,6 +9,7 @@ import mx.com.neogen.code.beans.BeanProgram;
 import mx.com.neogen.code.beans.Node;
 import mx.com.neogen.code.beans.Signal;
 import mx.com.neogen.code.beans.SignalTarget;
+import mx.com.neogen.code.enums.ReservedWordEnum;
 import mx.com.neogen.code.enums.SignalTypeEnum;
 import mx.com.neogen.code.enums.TargetTypeEnum;
 import mx.com.neogen.code.interfaces.Parser;
@@ -17,23 +18,6 @@ import mx.com.neogen.code.interfaces.Translator;
 
 public class SentenceParser {
 
-    private class Part {
-        int idx;
-        String endToken;
-        String text;
-        
-        Part( int idx, String endToken, String text) {
-            super();
-            
-            this.idx = idx;
-            this.endToken = endToken;
-            this.text = text;
-        }
-    }
-    
-    private final String[] END_TOKENS = { "when", "for", "while", "otherwise", ","};
-    
-    
     public final Parser     parser;
     public final Translator translator;
 
@@ -70,14 +54,8 @@ public class SentenceParser {
         
         var item = new Assignment();
         item.setSignal( tokens[0]);
-        
-        int i = 1;
-        if( !"is".equals( tokens[i])) {
-            throw new RuntimeException( "The word 'is' must follow the name of a signal, sentence: " + sentence); 
-        }
-        ++i;
-        
-        var elements = getRawAssignmentElements( i, tokens);
+                
+        var elements = getRawAssignmentElements( 1, tokens);
         Node node;
         
         for ( AssignmentElement element : elements) {
@@ -90,6 +68,11 @@ public class SentenceParser {
             if( element.hasResetClausule()) {
                 node = parser.parse( element.getResetCondition());
                 element.setResetCondition( translator.translate( item.getSignal(), node));
+            }
+            
+            if( element.getEveryExpression() != null) {
+                node = parser.parse( element.getEveryExpression());
+                element.setEveryExpression( translator.translate( item.getSignal(), node));
             }
             
             if ( element.getSetCondition() != null) {
@@ -152,59 +135,101 @@ public class SentenceParser {
         return tokens.toArray( new String[] {});
     }
     
-     protected List<AssignmentElement> getRawAssignmentElements( int startIdx, String[] tokens) {
-        StringBuilder strb;
-        String token;
-        AssignmentElement element;
-        
-        var idx = startIdx;
+    protected List<AssignmentElement> getRawAssignmentElements( int startIdx, String[] tokens) {
         var elements = new ArrayList<AssignmentElement>();
-        Part part;
+        AssignmentElement element = null;
         
-        while( idx < tokens.length) {
-            element = new AssignmentElement();
-            
-            part = getNextPart( tokens, idx, END_TOKENS);
-                                 
-            element.setSetExpression( part.text);
-            idx = part.idx;
-            
-            if ( part.endToken == null) {   // there is no clauses
-                elements.add( element);
-                break;
-            }
-            
-            switch ( part.endToken) {
-                case "for"  :
-                case "while":
-                    element.setResetClausule( part.endToken);
+        for( Part part : getSentenceParts( startIdx, tokens)) {
+            switch( part.reservedWord) {
+                case IS:
+                    element = new AssignmentElement();
+                    element.setSetExpression( part.expression);
+                    elements.add( element);
+                    
                     break;
+                    
+                case FOR  :  
+                case WHILE:
+                    if ( element == null) {
+                        throw new RuntimeException( "ERROR: no se ha iniciado elemento de asignacion");
+                    }
+                    
+                    element.setResetClausule( part.reservedWord);
+                    element.setResetCondition( part.expression);
+                    
+                    break;
+                    
+                case EVERY:
+                    if( element == null) {
+                        throw new RuntimeException( "ERROR: no se ha iniciado elemento de asignacion");
+                    }
+                    
+                    element.setEveryExpression( part.expression);
+                    
+                    break;
+                    
+                case WHEN:
+                    if ( element == null) {
+                        throw new RuntimeException( "ERROR: no se ha iniciado elemento de asignacion");
+                    }
+                    
+                    element.setSetCondition( part.expression);
+                    
+                    break;
+                    
+                case COMA:
+                    throw new RuntimeException( "ERROR: reserved word no manejado");
             }
-            
-            part = getNextPart( tokens, idx, END_TOKENS);
-            idx = part.idx;
-            
-            // if a reset clausule is present, is followed by the reset condition
-            if ( element.getResetClausule() != null) {
-                element.setResetCondition( part.text);    
-            } else {
-                element.setSetCondition( part.text.isEmpty()? null : part.text);
-            }
-            
-            // if reset clausule exists, the last part is the set condition (when)
-            if ( element.getResetClausule() != null) {
-                part = getNextPart( tokens, idx, END_TOKENS);
-                idx = part.idx;
-                element.setSetCondition( part.text.isEmpty()? null : part.text);
-            }
-            
-            elements.add( element);
         }
         
         return elements;
     }
     
-    protected String getExpression( int startIdx, String[] tokens) {
+    /** 
+     *  A sentence element is a collection of expressions separated by reserved words
+     */
+    
+    class Part {
+        ReservedWordEnum reservedWord;
+        String expression;
+    }
+        
+    
+    private List<Part> getSentenceParts( int startIdx, String[] tokens) {
+        var elements = new ArrayList();
+        
+        int idx = startIdx;
+        while( idx < tokens.length) {
+            idx = addNextPart( idx, tokens, elements);
+        }
+        
+        return elements;
+    }
+    
+    private int addNextPart( int startIdx, String[] tokens, List<Part> parts) {
+        var part= new Part();
+        var idx = startIdx;
+   
+        part.reservedWord = ReservedWordEnum.obtenerValor( tokens[ idx]);
+        
+        String expression = null;
+        
+        while( ++idx < tokens.length) {
+            if( ReservedWordEnum.obtenerValor( tokens[ idx]) != null) {
+                break;
+            }
+            expression = (expression == null)? tokens[ idx] : expression + " " + tokens[ idx]; 
+        }
+        
+        part.expression = expression;
+        
+        parts.add( part);
+        
+        return idx;
+    }    
+   
+    
+    private String getExpression( int startIdx, String[] tokens) {
         var strb = new StringBuilder();
         
         for ( int i = startIdx ; i < tokens.length; ++i) {
@@ -215,7 +240,7 @@ public class SentenceParser {
         return strb.toString();
     }
     
-    protected boolean existsSignal( List<Signal> items, String name) {
+    private boolean existsSignal( List<Signal> items, String name) {
         for( Signal item : items) {
             if( item.getName().equals( name)) {
                 return true;
@@ -225,40 +250,8 @@ public class SentenceParser {
         return false;
     }
     
-    protected String getFirstToken( String sentence) {
+    private String getFirstToken( String sentence) {
         return sentence.split( "\\s")[0];
-    }
-    
-    private Part getNextPart( String[] tokens, int startIdx, String[] endTokens) {
-        var strb = new StringBuilder();
-        var idx = startIdx;
-        String token;
-        String endToken = null;
-        
-        while( idx < tokens.length) {
-            token = tokens[ idx];
-            if ( contains( endTokens, token)) {
-                endToken = token;
-                idx++;
-                break;
-            }
-            
-            if( strb.length() > 0) { strb.append( ' '); }
-            strb.append( token);                   
-            idx++;
-        }
-        
-        return new Part( idx, endToken, strb.toString());
-    }
-    
-    private boolean contains ( String[] items, String value) {
-        for( String item : items) {
-            if( item.equals( value)) {
-                return true;
-            }
-        }
-        
-        return false;
     }
     
 }

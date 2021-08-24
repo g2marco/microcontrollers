@@ -18,13 +18,14 @@ public class Main {
     private final static String TEMPLATE_PROYECT_PATH = BASE_PATH_DIR + "template";
     private final static String TARGET_PROYECT_PATH   = BASE_PATH_DIR + "target";
     
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\001_simple_assignment.ggma";
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\002_two_inputs.ggma";
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\003_turn_on_turn_off.ggma";
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\004_turn_on_turn_off_Xms.ggma";
-    //private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\005_turn_on_while.ggma";
-    private final static String PROGRAM_PATH          = BASE_PATH_DIR + "examples\\006_toggle_every.ggma";
-    
+    //private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\001_simple_assignment.ggma";
+    //private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\002_two_inputs.ggma";
+    //private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\003_turn_on_turn_off.ggma";
+    //private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\004_turn_on_turn_off_Xms.ggma";
+    //private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\005_turn_on_while.ggma";
+    //private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\006_toggle_every.ggma";
+    //private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\007_toggle_every_when.ggma";
+    private final static String PROGRAM_PATH = BASE_PATH_DIR + "examples\\008_toggle_every_when_while.ggma";
     
     private final Parser         expressionParser;
     private final Translator expressionTranslator;

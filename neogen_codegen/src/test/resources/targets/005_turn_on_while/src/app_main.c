@@ -23,7 +23,7 @@ void __interrupt() general_isr( void) {
 bool isDebouncing_0 = false;
 bool hasChanged_switchA = false;
 unsigned char ticks_0 = 0;
-__bit switchA = 0; 
+__bit switchA;
 
 void debounce_input_0() {
     hasChanged_switchA = false;
@@ -47,7 +47,7 @@ void debounce_input_0() {
 bool isDebouncing_1 = false;
 bool hasChanged_switchB = false;
 unsigned char ticks_1 = 0;
-__bit switchB = 0; 
+__bit switchB;
 
 void debounce_input_1() {
     hasChanged_switchB = false;

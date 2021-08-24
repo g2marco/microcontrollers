@@ -36,23 +36,26 @@ void loop( void) {
         
         switch( outputA_state) {
     		case 0:                // state of element index
-                if( --outputA_counter == 0) {
-    				outputA_state = -1;
+                if( outputA_cycle == 0) {
+    			    outputA_counter = (1000);
+                    outputA_cycle = (2000);
+                    outputA = (1);
+                }
+
+                if( outputA == (1) && outputA_counter == 0) {
     				outputA = !outputA;
     			}
+
+                --outputA_counter;
+                --outputA_cycle;
 			
     			break;	
 		
             default: 							// no state
-                if( outputA_cycle == 0) {
-    				outputA_state = 0;
-                    outputA_counter = (1000);
-                    outputA_cycle = (2000);
-                    outputA = (1);
-                }
+                outputA_state = 0;
+                outputA = (1);
         }
-        --outputA_cycle;
-
+        
         tick = false;
     }
 }

@@ -21,23 +21,23 @@ void __interrupt() general_isr( void) {
  */ 
 
 bool isDebouncing_0 = false;
-bool hasChanged_switchA = false;
+bool hasChanged_inputA = false;
 unsigned char ticks_0 = 0;
-__bit switchA;
+__bit inputA; 
 
 void debounce_input_0() {
-    hasChanged_switchA = false;
+    hasChanged_inputA = false;
 
     if( isDebouncing_0) {              //  input GP0 is debouncing
         if( --ticks_0 == 0) {          //  the number of ticks has passed
-            hasChanged_switchA = (switchA != raw_switchA);
+            hasChanged_inputA = (inputA != raw_inputA);
             // sets change flag before assign new value
-            switchA = raw_switchA;            //  ends debouncing
+            inputA = raw_inputA;            //  ends debouncing
             isDebouncing_0 = false;
         }
     
     } else {
-        if ( raw_switchA != switchA) {
+        if ( raw_inputA != inputA) {
             ticks_0 = 100;
             isDebouncing_0 = true;
         }
@@ -61,17 +61,30 @@ void loop( void) {
         
         switch( outputA_state) {
     		case 0:                // state of element index
-                if( --outputA_counter == 0) {
+                if ( !(inputA == 0)) {
     				outputA_state = -1;
-    				outputA = !outputA;
-    			}
-			
+    				outputA = 0;
+
+    			} else {
+                    if( outputA_cycle == 0) {
+                        outputA_counter = (1000);
+                        outputA_cycle = (2000);
+                        outputA = (1);
+                    }
+                    
+                    if( outputA == (1) && outputA_counter == 0) {
+        				outputA = !outputA;
+            		}
+                    
+                    --outputA_counter;
+                    --outputA_cycle;
+                }
+
     			break;	
 		
             default: 							// no state
-                if (hasChanged_switchA && switchA == 1) {             
-    				outputA_state = 0;
-                    outputA_counter = (1000);
+                if (inputA == 0) {
+                    outputA_state = 0;
                     outputA = (1);
                 }
         }

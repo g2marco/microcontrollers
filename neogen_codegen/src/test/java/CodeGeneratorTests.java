@@ -64,6 +64,19 @@ public class CodeGeneratorTests {
         runTest(  "006_toggle_every");
     }
     
+    @DisplayName( "prueba 007: prender por XXmx cada YY ms cuando inputA es activo")
+    @Test
+    void test_007() {
+        runTest(  "007_toggle_every_when");
+    }
+    
+    @DisplayName( "prueba 008: prender por XXmx cada YY ms cuando inputA es activo, mientras inputA es activo")
+    @Test
+    void test_008() {
+        runTest(  "008_toggle_every_when_while");
+    }
+    
+    
     private void runTest( String name) {        
         var programPath = BASE_PROGRAM_PATH_DIR + name + ".ggma";
         
@@ -111,8 +124,13 @@ public class CodeGeneratorTests {
             BufferedReader t = new BufferedReader( new FileReader( target));
         ) {
             String line;
+            String otherLine;
+            
             while ( (line = s.readLine()) != null) {
-                Assertions.assertEquals( line, t.readLine());
+                otherLine = t.readLine();
+                if ( !line.isBlank() || !otherLine.isBlank()) {
+                    Assertions.assertEquals( line.trim(), otherLine.trim());
+                }
             }
         }
     }

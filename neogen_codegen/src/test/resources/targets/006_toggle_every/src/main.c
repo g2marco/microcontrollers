@@ -1,4 +1,3 @@
-
 #include <xc.h>
 #include "libs\device_setup.h"
 
@@ -8,6 +7,7 @@ void main( void) {
 	setup();
     
     interruptions();
+
 
 	while( 1) {
 	    loop();

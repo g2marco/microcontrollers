@@ -25,7 +25,7 @@ void __interrupt() general_isr( void) {
 bool isDebouncing_${signal.target.index} = false;
 bool hasChanged_${signal.name} = false;
 unsigned char ticks_${signal.target.index} = 0;
-__bit ${signal.name} = 0; 
+__bit ${signal.name}; 
 
 void debounce_input_${signal.target.index}() {
     hasChanged_${signal.name} = false;
@@ -72,35 +72,41 @@ void loop( void) {
         switch( ${assignment.signal}_state) {
         #foreach( $element in $assignment.elements) 
     		case $foreach.index:                // state of element index
-    		#if ( $element.resetClausule == 'WHILE')
+    		#if ( $element.setCondition)
+                #if ( $element.everyExpression)
+                if( ${assignment.signal}_cycle == 0) {
+                    #if ( $element.resetClausule == 'WHILE')
+   					${assignment.signal}_state = ${foreach.index};
+    				#end
+    				#if ( $element.resetClausule == 'FOR')
+    				${assignment.signal}_counter = $element.resetCondition;
+    				#end
+                    ${assignment.signal}_cycle = $element.everyExpression;
+                    ${assignment.signal} = ${element.setExpression};
+                }
+
+                #if ( $element.resetClausule == 'FOR')
+                if( ${assignment.signal} == ${element.setExpression} && ${assignment.signal}_counter == 0) {
+    				${assignment.signal} = !${assignment.signal};
+    			}
+                
+                --${assignment.signal}_counter;
+                #end
+                --${assignment.signal}_cycle;
+                #else
+                #if ( $element.resetClausule == 'WHILE')
                 if $element.resetCondition {
     				${assignment.signal}_state = -1;
     				${assignment.signal} = !${assignment.signal};
     			}
-    		#end
-    		#if ( $element.resetClausule == 'FOR')
+                #end
+                #if ( $element.resetClausule == 'FOR')
                 if( --${assignment.signal}_counter == 0) {
     				${assignment.signal}_state = -1;
     				${assignment.signal} = !${assignment.signal};
     			}
-    		#end
-			
-    			break;	
-		#end
-		
-            default: 							// no state
-        #foreach( $element in $assignment.elements) 
-            #if ( $element.setCondition)
-                if $element.setCondition {             
-    				#if ( $element.resetClausule == 'WHILE')
-   					${assignment.signal}_state = ${foreach.index};
-    				#end
-    				#if ( $element.resetClausule == 'FOR')
-    				${assignment.signal}_state = ${foreach.index};
-                    ${assignment.signal}_counter = $element.resetCondition;
-    				#end
-                    ${assignment.signal} = ${element.setExpression};
-                }
+                #end
+                #end
             #else
                 #if ( $element.everyExpression)
                 if( ${assignment.signal}_cycle == 0) {
@@ -108,23 +114,54 @@ void loop( void) {
    					${assignment.signal}_state = ${foreach.index};
     				#end
     				#if ( $element.resetClausule == 'FOR')
-    				${assignment.signal}_state = ${foreach.index};
-                    ${assignment.signal}_counter = $element.resetCondition;
+    				${assignment.signal}_counter = $element.resetCondition;
     				#end
                     ${assignment.signal}_cycle = $element.everyExpression;
                     ${assignment.signal} = ${element.setExpression};
                 }
+
+                #if ( $element.resetClausule == 'FOR')
+                if( ${assignment.signal} == ${element.setExpression} && ${assignment.signal}_counter == 0) {
+    				${assignment.signal} = !${assignment.signal};
+    			}
+                
+                --${assignment.signal}_counter;
+                #end
+                --${assignment.signal}_cycle;
+                #end
+			#end
+
+    			break;	
+		#end
+		
+            default: 							// no state
+        #foreach( $element in $assignment.elements) 
+            #if ( $element.setCondition)
+                if $element.setCondition {
+                    #if ( $element.everyExpression)
+                    ${assignment.signal}_state = ${foreach.index};
+                    ${assignment.signal} = ${element.setExpression};
+                    #else
+                    #if ( $element.resetClausule == 'WHILE')
+   					${assignment.signal}_state = ${foreach.index};
+    				#end
+    				#if ( $element.resetClausule == 'FOR')
+    				${assignment.signal}_state = ${foreach.index};
+                    ${assignment.signal}_counter = $element.resetCondition;
+    				#end
+                    ${assignment.signal} = ${element.setExpression};
+                    #end
+                }
+            #else
+                #if ( $element.everyExpression)
+                ${assignment.signal}_state = ${foreach.index};
+    			${assignment.signal} = ${element.setExpression};
                 #else
                 ${assignment.signal} = ${element.setExpression};
                 #end
             #end
 		#end
         }
-        #foreach( $element in $assignment.elements) 
-        #if( ${element.everyExpression})
-        --${assignment.signal}_cycle;
-        #end
-        #end
     #end
 
         tick = false;

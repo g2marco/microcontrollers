@@ -62,22 +62,32 @@ public class SentenceParser {
             
             System.out.println( "element: " + element);
             
-            node = parser.parse( element.getSetExpression());
-            element.setSetExpression( translator.translate( item.getSignal(), node));
+            node = parser.parse( element.getExpression());
+            element.setExpression( translator.translate( item.getSignal(), node));
             
-            if( element.hasResetClausule()) {
-                node = parser.parse( element.getResetCondition());
-                element.setResetCondition( translator.translate( item.getSignal(), node));
+            if( element.getConditionFor() != null) {
+                node = parser.parse( element.getConditionFor());
+                element.setConditionFor( translator.translate( item.getSignal(), node));
             }
             
-            if( element.getEveryExpression() != null) {
-                node = parser.parse( element.getEveryExpression());
-                element.setEveryExpression( translator.translate( item.getSignal(), node));
+            if( element.getConditionWhile() != null) {
+                node = parser.parse( element.getConditionWhile());
+                element.setConditionWhile( translator.translate( item.getSignal(), node));
             }
             
-            if ( element.getSetCondition() != null) {
-                node = parser.parse( element.getSetCondition());
-                element.setSetCondition( translator.translate( item.getSignal(), node));
+            if( element.getConditionEvery() != null) {
+                node = parser.parse( element.getConditionEvery());
+                element.setConditionEvery( translator.translate( item.getSignal(), node));
+            }
+            
+            if( element.getConditionUntil() != null) {
+                node = parser.parse( element.getConditionUntil());
+                element.setConditionUntil( translator.translate( item.getSignal(), node));
+            }
+            
+            if ( element.getConditionWhen() != null) {
+                node = parser.parse( element.getConditionWhen());
+                element.setConditionWhen( translator.translate( item.getSignal(), node));
             }
         }
         
@@ -143,40 +153,16 @@ public class SentenceParser {
             switch( part.reservedWord) {
                 case IS:
                     element = new AssignmentElement();
-                    element.setSetExpression( part.expression);
+                    element.setExpression( part.expression);
                     elements.add( element);
                     
                     break;
                     
-                case FOR  :  
-                case WHILE:
-                    if ( element == null) {
-                        throw new RuntimeException( "ERROR: no se ha iniciado elemento de asignacion");
-                    }
-                    
-                    element.setResetClausule( part.reservedWord);
-                    element.setResetCondition( part.expression);
-                    
-                    break;
-                    
-                case EVERY:
-                    if( element == null) {
-                        throw new RuntimeException( "ERROR: no se ha iniciado elemento de asignacion");
-                    }
-                    
-                    element.setEveryExpression( part.expression);
-                    
-                    break;
-                    
-                case WHEN:
-                    if ( element == null) {
-                        throw new RuntimeException( "ERROR: no se ha iniciado elemento de asignacion");
-                    }
-                    
-                    element.setSetCondition( part.expression);
-                    
-                    break;
-                    
+                case FOR  : element.setConditionFor(   part.expression); break;
+                case WHILE: element.setConditionWhile( part.expression); break;
+                case EVERY: element.setConditionEvery( part.expression); break;
+                case UNTIL: element.setConditionUntil( part.expression); break;
+                case WHEN : element.setConditionWhen(  part.expression); break;
                 case COMA:
                     throw new RuntimeException( "ERROR: reserved word no manejado");
             }

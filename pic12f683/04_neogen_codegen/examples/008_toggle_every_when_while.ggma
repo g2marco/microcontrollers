@@ -7,4 +7,4 @@ inputA  is input  switch  on pin GP0;
 outputA is output         on pin GP5;
 
 // ouput function
-outputA is ON for 1000'ms every 2000'ms while inputA == 0 when inputA == 0;
+outputA is ON for 1000'ms every 2000'ms until inputA != 0 when inputA == 0;

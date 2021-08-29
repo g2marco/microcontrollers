@@ -1,72 +1,88 @@
 package mx.com.neogen.code.beans;
 
-import mx.com.neogen.code.enums.ReservedWordEnum;
-
-
 public class AssignmentElement {
-    
-    private String setExpression;
-    private String everyExpression;
-    private ReservedWordEnum resetClausule;
-    private String resetCondition;
-    private String setCondition;
+
+    private String expression;
+    private String conditionFor;
+    private String conditionWhile;
+    private String conditionEvery;
+    private String conditionUntil;
+    private String conditionWhen;
 
     
     public AssignmentElement() {
         super();
     }
     
-
-    public String getSetExpression() {
-        return setExpression;
+    public String getExpression() {
+        return expression;
     }
 
-    public void setSetExpression( String setExpression) {
-        this.setExpression = setExpression;
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 
-    public String getEveryExpression() {
-        return everyExpression;
+    public String getConditionFor() {
+        return conditionFor;
     }
 
-    public void setEveryExpression( String everyExpression) {
-        this.everyExpression = everyExpression;
+    public void setConditionFor(String conditionFor) {
+        this.conditionFor = conditionFor;
+    }
+
+    public String getConditionWhile() {
+        return conditionWhile;
+    }
+
+    public void setConditionWhile(String conditionWhile) {
+        this.conditionWhile = conditionWhile;
+    }
+
+    public String getConditionEvery() {
+        return conditionEvery;
+    }
+
+    public void setConditionEvery(String conditionEvery) {
+        this.conditionEvery = conditionEvery;
+    }
+
+    public String getConditionUntil() {
+        return conditionUntil;
+    }
+
+    public void setConditionUntil(String conditionUntil) {
+        this.conditionUntil = conditionUntil;
+    }
+
+    public String getConditionWhen() {
+        return conditionWhen;
+    }
+
+    public void setConditionWhen(String conditionWhen) {
+        this.conditionWhen = conditionWhen;
     }
     
-    public ReservedWordEnum getResetClausule() {
-        return resetClausule;
-    }
-
-    public void setResetClausule( ReservedWordEnum resetClausule) {
-        this.resetClausule = resetClausule;
-    }
-
-    public String getResetCondition() {
-        return resetCondition;
-    }
-
-    public void setResetCondition( String resetCondition) {
-        this.resetCondition = resetCondition;
-    }
-
-    public String getSetCondition() {
-        return setCondition;
-    }
-
-    public void setSetCondition( String setCondition) {
-        this.setCondition = setCondition;
+    
+    public String getTemplate() {
+        var strb = new StringBuilder( "expr");
+        
+        if ( conditionFor   != null) { strb.append(   "_for"); }
+        if ( conditionWhile != null) { strb.append( "_while"); }
+        if ( conditionEvery != null) { strb.append( "_every"); }
+        if ( conditionUntil != null) { strb.append( "_until"); }
+    
+        return strb.toString();
     }
     
-    public boolean hasResetClausule() {
-        return resetClausule != null;
-    }
     
     @Override
     public String toString() {
-        return "setExpression: " + setExpression + 
-            (resetClausule   == null? "" : ", resetClausule: " + resetClausule + ", resetCondition: " + resetCondition) +
-            (everyExpression == null? "" : ", every: " + everyExpression) +
-            (setCondition    == null? "" : ", setCondition: " + setCondition)
+        return "expression: " + expression + 
+            (conditionFor   == null? "" : ", for  : " + conditionFor  ) +
+            (conditionWhile == null? "" : ", while: " + conditionWhile) +
+            (conditionEvery == null? "" : ", every: " + conditionEvery) +
+            (conditionUntil == null? "" : ", until: " + conditionUntil) +
+            (conditionWhen  == null? "" : ", when : " + conditionWhen )
         ;
     }
 

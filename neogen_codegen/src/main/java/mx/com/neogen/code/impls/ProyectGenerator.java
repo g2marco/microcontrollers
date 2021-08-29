@@ -33,11 +33,16 @@ public class ProyectGenerator {
     
     private void copyOrFill( File sourceFile, File targetBaseDir, BeanProgram bean) throws IOException {
         if ( sourceFile.isDirectory()) {
+            if( "templates".equals (sourceFile.getName())) {
+                return;
+            }
+            
             createDirectory( sourceFile, targetBaseDir);
             
             for( File file : sourceFile.listFiles()) {
                 copyOrFill( file, targetBaseDir, bean);
             }
+            
         } else if( sourceFile.isFile() && !sourceFile.isHidden()) {
             if( isTemplate( sourceFile)) {
                 fillTemplate( sourceFile, targetBaseDir, bean);

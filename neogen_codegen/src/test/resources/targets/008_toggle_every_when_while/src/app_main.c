@@ -61,9 +61,9 @@ void loop( void) {
         
         switch( outputA_state) {
     		case 0:                // state of element index
-                if ( !(inputA == 0)) {
+                if (inputA != 0) {
     				outputA_state = -1;
-    				outputA = 0;
+    				outputA = !(1);
 
     			} else {
                     if( outputA_cycle == 0) {

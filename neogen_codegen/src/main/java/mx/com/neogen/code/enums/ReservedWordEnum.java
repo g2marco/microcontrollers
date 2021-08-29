@@ -7,6 +7,7 @@ public enum ReservedWordEnum {
     FOR(             "for"),
     EVERY(         "every"),
     WHILE(         "while"),
+    UNTIL(         "until"),
     OTHERWISE( "otherwise"),
     COMA(              ",");
 

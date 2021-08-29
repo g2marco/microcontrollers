@@ -71,95 +71,16 @@ void loop( void) {
     #foreach( $assignment in $data.assignments)
         switch( ${assignment.signal}_state) {
         #foreach( $element in $assignment.elements) 
-    		case $foreach.index:                // state of element index
-    		#if ( $element.setCondition)
-                #if ( $element.everyExpression)
-                if( ${assignment.signal}_cycle == 0) {
-                    #if ( $element.resetClausule == 'WHILE')
-   					${assignment.signal}_state = ${foreach.index};
-    				#end
-    				#if ( $element.resetClausule == 'FOR')
-    				${assignment.signal}_counter = $element.resetCondition;
-    				#end
-                    ${assignment.signal}_cycle = $element.everyExpression;
-                    ${assignment.signal} = ${element.setExpression};
-                }
-
-                #if ( $element.resetClausule == 'FOR')
-                if( ${assignment.signal} == ${element.setExpression} && ${assignment.signal}_counter == 0) {
-    				${assignment.signal} = !${assignment.signal};
-    			}
-                
-                --${assignment.signal}_counter;
-                #end
-                --${assignment.signal}_cycle;
-                #else
-                #if ( $element.resetClausule == 'WHILE')
-                if $element.resetCondition {
-    				${assignment.signal}_state = -1;
-    				${assignment.signal} = !${assignment.signal};
-    			}
-                #end
-                #if ( $element.resetClausule == 'FOR')
-                if( --${assignment.signal}_counter == 0) {
-    				${assignment.signal}_state = -1;
-    				${assignment.signal} = !${assignment.signal};
-    			}
-                #end
-                #end
-            #else
-                #if ( $element.everyExpression)
-                if( ${assignment.signal}_cycle == 0) {
-                    #if ( $element.resetClausule == 'WHILE')
-   					${assignment.signal}_state = ${foreach.index};
-    				#end
-    				#if ( $element.resetClausule == 'FOR')
-    				${assignment.signal}_counter = $element.resetCondition;
-    				#end
-                    ${assignment.signal}_cycle = $element.everyExpression;
-                    ${assignment.signal} = ${element.setExpression};
-                }
-
-                #if ( $element.resetClausule == 'FOR')
-                if( ${assignment.signal} == ${element.setExpression} && ${assignment.signal}_counter == 0) {
-    				${assignment.signal} = !${assignment.signal};
-    			}
-                
-                --${assignment.signal}_counter;
-                #end
-                --${assignment.signal}_cycle;
-                #end
-			#end
-
-    			break;	
+            #set( $section  = 'switch')
+            #set( $template = "templates/set_${element.template}.vm")
+    		#parse( $template)
 		#end
 		
             default: 							// no state
         #foreach( $element in $assignment.elements) 
-            #if ( $element.setCondition)
-                if $element.setCondition {
-                    #if ( $element.everyExpression)
-                    ${assignment.signal}_state = ${foreach.index};
-                    ${assignment.signal} = ${element.setExpression};
-                    #else
-                    #if ( $element.resetClausule == 'WHILE')
-   					${assignment.signal}_state = ${foreach.index};
-    				#end
-    				#if ( $element.resetClausule == 'FOR')
-    				${assignment.signal}_state = ${foreach.index};
-                    ${assignment.signal}_counter = $element.resetCondition;
-    				#end
-                    ${assignment.signal} = ${element.setExpression};
-                    #end
-                }
-            #else
-                #if ( $element.everyExpression)
-                ${assignment.signal}_state = ${foreach.index};
-    			${assignment.signal} = ${element.setExpression};
-                #else
-                ${assignment.signal} = ${element.setExpression};
-                #end
-            #end
+            #set( $section = 'default')
+            #set( $template = "templates/set_${element.template}.vm")
+    		#parse( $template)
 		#end
         }
     #end

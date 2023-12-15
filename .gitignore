@@ -1,2 +1,4 @@
+# *.hex y *.s son archivos generados por el compilador, por lo que se elige no incluirlos en el repositorio
+
 *.hex
 *.s

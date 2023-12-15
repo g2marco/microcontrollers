@@ -6,7 +6,7 @@
 
 /**
  *  The most simple assignment output = input[debounced]
- */  
+ */
 
 bool tick;
 
@@ -19,7 +19,7 @@ void __interrupt() general_isr( void) {
 
 bool isDebouncing_XXX = false;
 unsigned char ticks_XXX       = 0;
-__bit debounced_XXX = 0; 
+__bit debounced_XXX = 0;
 #define raw_XXX  GP1
 
 void debounce_input_XXX() {
@@ -31,7 +31,7 @@ void debounce_input_XXX() {
         }
     } else {
         if ( raw_XXX != debounced_XXX) {
-            ticks_XXX = 100;
+            ticks_XXX = 100;                    // aprox 100 ms @ 4MHz
             isDebouncing_XXX = true;
         }
     }

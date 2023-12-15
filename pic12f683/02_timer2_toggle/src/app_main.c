@@ -9,7 +9,7 @@ bool tick;
 
 void __interrupt() general_isr( void) {
 	if (TMR2IE && TMR2IF) {
-        TMR2IF=0;
+        TMR2IF = 0;
 		tick = true;
     }
 }

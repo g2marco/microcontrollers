@@ -7,9 +7,9 @@
 
 ## Device Summary
 
-| Program Memory | Data memory                 | I/O Lines | A/D Channels | Comparators | Timers                      |
-| -------------- | --------------------------- | --------- | ------------ | ----------- | --------------------------- |
-| 2KW            | 128 B RAM<br />256 B EEPROM | 6         | 4 (10 bits)  | 1           | 2 (8 bits)<br />1 (16 bits) |
+| Program Memory | Data memory                         | I/O Lines | A/D Channels | Comparators | Timers                        |
+| -------------- | ----------------------------------- | --------- | ------------ | ----------- | ----------------------------- |
+| 2KW            | 128 bytes RAM<br />256 bytes EEPROM | 6         | 4 (10 bits ) | 1           | 2 (  8 bits)<br />1 (16 bits) |
 
 
 
@@ -56,12 +56,9 @@ TRISIO = XX;
 
 **ADCS[2:0]** A/D Conversion clock select
 
-**ANS[3:0]** Analog select bits
-
-Analog select between analog or digital functions pins AN< 3:0 >
+**ANS[3:0]**  Analog select between analog or digital functions pins (AN3, AN2, AN1, AN0)
 
 ​	**1**= analog pin
-
 ​	**0** = digital pin
 
 **NOTE:**

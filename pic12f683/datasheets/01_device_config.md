@@ -34,8 +34,3 @@
 | **FCMEN** | Fail-Safe Clock Monitor Enabled   | **ON**/**OFF**                                               |
 
 
-
-
-
-
-

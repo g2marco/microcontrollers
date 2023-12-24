@@ -5,8 +5,6 @@
 #include "libs\device_pinout.h"
 
 
-
-
 bool tick;                                      // true, every time timer 2 is done
 
 void __interrupt() general_isr( void) {

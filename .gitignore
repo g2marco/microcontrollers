@@ -1,3 +1,9 @@
+# commong ignored elements for java projects using netbeans
+
+/**/target/
+/**/nbproject/
+/**/nb-configuration.xml
+
 # *.hex y *.s son archivos generados por el compilador, por lo que se elige no incluirlos en el repositorio
 
 *.hex

@@ -182,7 +182,7 @@ public class SentenceParser {
         
     
     private List<Part> getSentenceParts( int startIdx, String[] tokens) {
-        var elements = new ArrayList();
+        List<Part> elements = new ArrayList<>();
         
         int idx = startIdx;
         while( idx < tokens.length) {

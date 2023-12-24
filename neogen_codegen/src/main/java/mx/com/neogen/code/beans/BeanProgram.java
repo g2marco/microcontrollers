@@ -32,7 +32,7 @@ public class BeanProgram {
         return strb.toString();
     }
     
-    private void list( StringBuilder strb, String title,  List items) {
+    private void list( StringBuilder strb, String title,  List<? extends Object> items) {
         strb.append( "\n").append( title).append( ":");
         
         for( Object item : items) {

@@ -13,7 +13,7 @@ import mx.com.neogen.code.interfaces.Parser;
 import mx.com.neogen.code.interfaces.Translator;
 
 public class Main {
-    private final static String BASE_PATH_DIR = "D:\\home\\ework\\microcontrollers\\pic12f683\\04_neogen_codegen\\";
+    private final static String BASE_PATH_DIR = "D:\\home\\ework\\microcontrollers\\pic12f683\\10_neogen_codegen\\";
     
     private final static String TEMPLATE_PROYECT_PATH = BASE_PATH_DIR + "template";
     private final static String TARGET_PROYECT_PATH   = BASE_PATH_DIR + "target";

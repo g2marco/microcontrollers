@@ -15,7 +15,7 @@ del /s *.sym     >nul 2>&1
 del /s *.hex     >nul 2>&1
 del /s *.s       >nul 2>&1
 
-xc8-cc -mcpu=12F683  %SRC_DIR%\main.c %SRC_DIR%\app_main.c %LIBS_DIR%\device_setup.c  %LIBS_DIR%\timer2.c 
+xc8-cc -mcpu=12F683  %SRC_DIR%\main.c %SRC_DIR%\app_main.c %LIBS_DIR%\device_setup.c  %LIBS_DIR%\timer0.c 
 
 del /s *.cmf     >nul 2>&1
 del /s *.elf     >nul 2>&1

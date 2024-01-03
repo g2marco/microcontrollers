@@ -2,7 +2,7 @@
 #include <xc.h>
 #include "device_setup.h"
 #include "device_pinout.h"
-#include "timer2.h"
+#include "timer0.h"
 
 /**
  *  Device setup
@@ -12,17 +12,17 @@ void setup( void ) {
 	CMCON0 = 7;         // turn comparators off, enable related pins for I/O
 	ANSEL  = 0;
 
-    config_switchA;
     config_outputA;
 
-    config_timer0( TMR2_PRE_SCALER_1_4, 25); // 4 * 25 * 10 = 1000 , 1000 * 4 / 4Mhz => 1ms
+    config_timer0( TMR0_PRE_SCALER_1_8);
+
     init_timer0();
 }
 
 /**
  *  Interruption config
  */
-void interruptions( void) {
+void interruptions() {
     PEIE = 1;
     ei();
 }

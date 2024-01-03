@@ -11,10 +11,11 @@
 #define TMR0_PRE_SCALER_1_128   0x06    // xxxx x110
 #define TMR0_PRE_SCALER_1_256   0x07    // xxxx x111
 
+#define TMRO_INIT_VALUE          131     // 1ms @ Fosc = 4MHz, prescaler = 8
 
-void config_timer0( unsigned char prescaler, unsigned char initValue);
+void config_timer0( unsigned char prescaler);
 
-void init_timer0( unsigned char initValue);
+void init_timer0( void);
 
 #endif
 	

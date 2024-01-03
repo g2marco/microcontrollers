@@ -20,8 +20,8 @@ tmr0 = np.arange( 0, 256)
 ## Encontrar las combinaciones de tmr0 y prescale que producen un retardo específico con el menor error
 ##
 
-target = 1e-3
-max_error = 0.001
+target = 1e-3           # 1 ms
+max_error = 0.001       # 
 
 for prescale in prescales :
     time   = (256 - tmr0) * 4 * tosc * prescale

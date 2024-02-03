@@ -7,7 +7,6 @@
  */
 
 #define config_pin_led TRISIO0 = 0        // GPIO0 is output
-#define pin_led        GP0
-
+#define toggle_pin_led     GP0 = ~GP0
 
 #endif

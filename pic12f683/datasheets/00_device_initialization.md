@@ -1,5 +1,4 @@
 
-
 ## Device Initialization
 
 1. Define the function(s) of each pin in the app (inputs, outputs, peripheral assigned)
@@ -9,9 +8,9 @@
 
    - Pin I/O direction
    - Pull-ups (global an individual)
-5. Goblal Pin initialization
+5. Global pin initialization
 6. Configure and enable interruptions
-   - Interruption source, edge, flags, etc
+   - Interruption source, edge, flags, etc.
    - Interruption service routine implementation
 7. Global Interrupt enabling
 
@@ -22,10 +21,10 @@
 
 
 - Always (on app tick)
-  - Atiende tarea 1 
-  - Atiende tarea 2
+  - Attend Task 1 
+  - Attend Task 2
   - . . . 
-  - sleep / wait for next app tick
+  - Sleep / wait for next app tick
 
 
 

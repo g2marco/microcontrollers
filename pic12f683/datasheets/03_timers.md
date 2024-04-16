@@ -7,7 +7,7 @@
 | Timer  | Bits | Modes          | Clock Source       | Prescaler      | Postscaler | Interrupt   |
 | ------ | ---- | -------------- | ------------------ | -------------- | ---------- | ----------- |
 | Timer0 | 8    | timer /counter | Fosc / 4  \| T0CKI | 1:1 - 1:256    |            | on overflow |
-| Timer1 | 16   |                |                    |                |            |             |
+| Timer1 | 16   | timer/counter  | Fosc / 4 \| T1CKI  | 1:1, 2, 4, 8   |            | on overflow |
 | Timer2 | 8    | timer          | Fosc / 4           | 1:1, 1:4, 1:16 | 1:1 - 1:16 | yes         |
 
 
@@ -120,6 +120,67 @@ MOVWF OPTION_REG 					;
 
 
 ## Timer1
+
+- 16 bit incrementing timer / counter  (TMR1H : TMR1L)
+  - timer                 > when used with an internal clock source (T1CON.TMR1CS = 0 => Fosc / 4)
+  - timer / counter > when used with an external clock source (T1CON.TMR1CS = 1 => T1CKI pin - GP5 -)
+    - timer
+    - counter
+      - incremented on the rising edge of T1CKI
+      - clock can be synchronized to the system clock or run asynchronously
+      - if an external clock is needed and if using the INTOSC without CLKOUT, Timer1 can use the LP oscillator as clock source
+      - NOTE: A falling edge must be registered by the counter prior the first incrementing rising edge
+- 2 bit prescaler ( 1:1, 2, 4, 8 )
+  - T1CON.T1CKPS<1:0>
+  - Prescaler counter is cleared upon a write to TMR1H:TMR1L
+
+- Optional LP oscillator
+  - Low-power 32.768kHz crystal oscillator between OSC1 (GP2 input pin) and OSC2 ( GP4 amplifier output pin)
+  - T1CON.T1OSCEN = 1 enables this oscillator
+  - This oscillator will continue to run during sleep
+  - This oscillator is shared with the system LP oscillator, thus it can be used only when the primary system clock is derived from the internal oscillator or when in LP oscillator mode ( a software time delay **must** be provided to ensure proper oscillator startup)
+  - TRISIO[ 5 : 4] = 11 when Timer1 oscillator is enabled (GP5 and GP4 are read as '0's)
+
+- synchronous o asynchronous operation
+- timer1 gate == count enable (comparator / T1G pin)
+- Wake-up on overflow (only on asynchronous mode and using external clock)
+- Special event trigger (with CCP)
+- Comparator output synchronization to Timer1 clock
+
+ T1CON
+
+| R/w-0  | R/W-0  | R/W-0   | R/W-0   | R/W-0   | R/W-0  | R/W-0  | R/W-0  |
+| ------ | ------ | ------- | ------- | ------- | ------ | ------ | ------ |
+| T1GINV | TMR1GE | T1CKPS1 | T1CKPS0 | T1OSCEN | T1SYNC | TMR1CS | TMR1ON |
+
+**T1GINV** Timer1 gate invert
+
+​    **1** = Timer1 gate is active-high (timer counts when gate is high)
+​    **0** = Timer1 gate is active=low
+
+**TMR1GE** Timer1 gate enable ( this bit is ignored when **TMR1ON** = **0**)
+
+​    **1** = Timer1 is on if Timer1 gate is not active
+​    **0** = Timer1 is on
+
+**T1CKPS[1:0]** Timer1 input clock prescale
+
+​    **11** = 1:8 prescale
+​    **10** = 1:4 prescale
+​    **01** = 1:2 prescale
+​    **00** = 1:1 prescale
+
+**T1OSCEN** LP oscillator enable( this bit is ignored when **TMR1CS = **0** - timer1 uses internal clock)
+
+​    **1** = LP oscillator is enabled for Timer1 clock
+​    **0** = LP oscillator is off
+
+**T1SYNC** Timer1 external clock input synchronization ( this bit is ignored when **TMR1ON** = **0**)
+
+​    **1** = Timer1 is on if Timer1 gate is not active
+​    **0** = Timer1 is on
+
+
 
 
 

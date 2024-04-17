@@ -18,7 +18,7 @@
 #pragma config IESO  = OFF
 #pragma config FCMEN = OFF
 
-#define _XTAL_FREQ 		4000000
+#define _XTAL_FREQ 		4000000        // internal clock 4 MHz
 
 void setup( void );
 

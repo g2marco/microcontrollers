@@ -1,4 +1,7 @@
-
+/**
+ *  device_pinout.h     declaration of I/O pins 
+ * 
+ */
 #ifndef _device_pinout_
 #define _device_pinout_
 

@@ -1,3 +1,6 @@
+/**
+ * 	initial device setup and interruption configuration
+ */
 
 #include <xc.h>
 #include "device_setup.h"
@@ -6,6 +9,7 @@
 /**
  *  Device setup
  */
+
 void setup( void ) {
 	GPIO   = 0;         // clear port latches
 	CMCON0 = 7;         // turn comparators off, enable related pins for I/O
@@ -17,6 +21,7 @@ void setup( void ) {
 /**
  *  Interruption config
  */
+
 void interruptions( void) {
     // this app do not use interruptions
 }

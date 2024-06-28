@@ -3,7 +3,7 @@
  */
 
 #include <xc.h>
-#include "libs\device_setup.h"
+#include "libs/device_setup.h"
 
 extern void loop( void);
 
